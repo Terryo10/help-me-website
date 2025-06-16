@@ -1,3 +1,5 @@
 <div>
-    {{-- Stop trying to control. --}}
+    <livewire:header />
+
+    <livewire:footer />
 </div>
