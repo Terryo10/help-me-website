@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-12">
                     <nav class="navbar navbar-expand-xl nav-shadow" id="#navbar">
-                        <a class="navbar-brand" href="{{ route('home') }}">
+                        <a wire:navigate class="navbar-brand" href="{{ route('home') }}">
                             <img src="{{ asset('template/assets/images/logo.png') }}" class="logo" alt="HelpMe.co.zw Logo" style="height: 60px;">
                         </a>
                         <a class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
@@ -15,7 +15,7 @@
                             <div class="main-menu index-page">
                                 <ul class="navbar-nav mb-lg-0 mx-auto">
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('home') }}">Home</a>
+                                        <a wire:navigate class="nav-link" href="{{ route('home') }}">Home</a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Campaigns</a>
@@ -70,8 +70,8 @@
                                                 </ul>
                                             </div>
                                         @else
-                                            <a href="{{ route('login') }}" class="btn_theme btn_theme_active">Sign In <i class="bi bi-arrow-up-right"></i><span></span></a>
-                                            <a href="#" class="btn_theme">Start Campaign <i class="bi bi-arrow-up-right"></i><span></span></a>
+                                            <a wire:navigate href="{{ route('login') }}" class="btn_theme btn_theme_active">Sign In <i class="bi bi-arrow-up-right"></i><span></span></a>
+                                            <a wire:navigate href="#" class="btn_theme">Start Campaign <i class="bi bi-arrow-up-right"></i><span></span></a>
                                         @endauth
                                     </div>
                                     <div class="nav-right__search-inner">

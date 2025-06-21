@@ -4,7 +4,7 @@
                 <div class="col-12 col-sm-6 col-xl-3">
                     <div class="about-company wow fadeInLeft" data-wow-duration="0.8s">
                         <div class="footer__logo mb-4">
-                            <a href="{{ route('home') }}">
+                            <a wire:navigate href="{{ route('home') }}">
                                 <img src="{{ asset('template/assets/images/logo.png') }}" alt="HelpMe.co.zw">
                             </a>
                         </div>
@@ -75,8 +75,8 @@
                 <div class="col-12">
                     <div class="footer__copyright">
                         <p class="copyright text-center">
-                            Copyright © <span id="copyYear">{{ date('Y') }}</span> 
-                            <a href="#" class="secondary_color">HelpMe.co.zw</a>. 
+                            Copyright © <span id="copyYear">{{ date('Y') }}</span>
+                            <a href="#" class="secondary_color">HelpMe.co.zw</a>.
                             All rights reserved.
                         </p>
                         <ul class="footer__copyright-conditions">
