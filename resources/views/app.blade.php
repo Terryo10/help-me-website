@@ -1,69 +1,83 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-app-env="{{ env('APP_ENV') }}">
-
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ asset('template/assets/images/favicon.png') }}" type="image/x-icon">
+    
+    <title>{{ isset($title) ? $title . ' - ' : '' }}HelpMe.co.zw - Zimbabwe's Premier Fundraising Platform</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content="Zimbabwe fundraising, donate Zimbabwe, crowdfunding Zimbabwe, help Zimbabwe, charity Zimbabwe">
+    <meta name="description" content="HelpMe.co.zw - Zimbabwe's trusted fundraising platform. Create campaigns, donate to causes, and make a difference in communities across Zimbabwe.">
 
-    <link rel="shortcut icon" type="image/x-icon" href="/logo.png">
-    <title>HelpMe Donation Site</title>
-
-    {{-- @viteReactRefresh --}}
-
-    <link href="{{asset('aidus-live/assets/css/themify-icons.css') }}" rel="stylesheet">
-    <link href="{{asset('aidus-live/assets/css/flaticon_aidus.css') }}" rel="stylesheet">
-    <link href="{{asset('aidus-live/assets/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{asset('aidus-live/assets/css/animate.css') }}" rel="stylesheet">
-    <link href="{{asset('aidus-live/assets/css/owl.carousel.css') }}" rel="stylesheet">
-    <link href="{{asset('aidus-live/assets/css/owl.theme.css') }}" rel="stylesheet">
-    <link href="{{asset('aidus-live/assets/css/slick.css') }}" rel="stylesheet">
-    <link href="{{asset('aidus-live/assets/css/slick-theme.css') }}" rel="stylesheet">
-    <link href="{{asset('aidus-live/assets/css/swiper.min.css') }}" rel="stylesheet">
-    <link href="{{asset('aidus-live/assets/css/owl.transitions.css') }}" rel="stylesheet">
-    <link href="{{asset('aidus-live/assets/css/jquery.fancybox.css') }}" rel="stylesheet">
-    <link href="{{asset('aidus-live/assets/css/odometer-theme-default.css') }}" rel="stylesheet">
-    <link href="{{asset('aidus-live/assets/sass/style.css') }}" rel="stylesheet">
-
+    <!-- CSS Dependencies -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ asset('template/assets/vendor/bootstrap/css/bootstrap.min.css') }}">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="{{ asset('template/assets/vendor/nice-select/css/nice-select.css') }}">
+    <!-- Magnific Popup CSS -->
+    <link rel="stylesheet" href="{{ asset('template/assets/vendor/magnific-popup/css/magnific-popup.css') }}">
+    <!-- Slick CSS -->
+    <link rel="stylesheet" href="{{ asset('template/assets/vendor/slick/css/slick.css') }}">
+    <!-- Odometer CSS -->
+    <link rel="stylesheet" href="{{ asset('template/assets/vendor/odometer/css/odometer.css') }}">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="{{ asset('template/assets/vendor/animate/animate.css') }}">
+    
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{{ asset('template/assets/css/style.css') }}">
+    
+    <!-- Livewire Styles -->
     @livewireStyles
-
-    {{-- @vite("resources/app/index.tsx") --}}
-
-    <!-- All CSS Files -->
-
 </head>
-
 <body>
-     <div class="page-wrapper">
-
-        <!-- start preloader -->
-        <div class="preloader">
-            <div class="vertical-centered-box">
-                <div class="content">
-                    <div class="loader-circle"></div>
-                    <div class="loader-line-mask">
-                        <div class="loader-line"></div>
-                    </div>
-                    <img src="{{asset('aidus-live/assets/images/preloader.png') }}" alt="">
-                </div>
-            </div>
-        </div>
-
-        @yield('content')
-
-        @livewireScripts
-
-        {{-- <div id="root"></div> --}}
+    <!-- Preloader -->
+    <div class="preloader">
+        <span class="loader"></span>
     </div>
+     <main>
+        @yield('content')
+    </main>
 
-    <script src="{{asset('aidus-live/assets/js/jquery.min.js') }}"></script>
-    <script src="{{asset('aidus-live/assets/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- Plugins for this template -->
-    <script src="{{asset('aidus-live/assets/js/modernizr.custom.js') }}"></script>
-    <script src="{{asset('aidus-live/assets/js/jquery.dlmenu.js') }}"></script>
-    <script src="{{asset('aidus-live/assets/js/jquery-plugin-collection.js') }}"></script>
-    <!-- Custom script for this template -->
-    <script src="{{asset('aidus-live/assets/js/script.js') }}"></script>
+    <!-- Scroll to Top -->
+    <a href="#" class="scrollToTop"><i class="bi bi-chevron-double-up"></i></a>
 
+    <!-- JavaScript Dependencies -->
+    <!-- jQuery -->
+    <script src="{{ asset('template/assets/vendor/jquery/jquery-3.6.3.min.js') }}"></script>
+    <!-- Bootstrap JS -->
+    <script src="{{ asset('template/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Nice Select JS -->
+    <script src="{{ asset('template/assets/vendor/nice-select/js/jquery.nice-select.min.js') }}"></script>
+    <!-- Magnific Popup JS -->
+    <script src="{{ asset('template/assets/vendor/magnific-popup/js/jquery.magnific-popup.min.js') }}"></script>
+    <!-- Circular Progress Bar -->
+    <script src="https://cdn.jsdelivr.net/gh/tomik23/circular-progress-bar@latest/docs/circularProgressBar.min.js"></script>
+    <!-- Slick JS -->
+    <script src="{{ asset('template/assets/vendor/slick/js/slick.min.js') }}"></script>
+    <!-- Odometer JS -->
+    <script src="{{ asset('template/assets/vendor/odometer/js/odometer.min.js') }}"></script>
+    <!-- Viewport JS -->
+    <script src="{{ asset('template/assets/vendor/viewport/viewport.jquery.js') }}"></script>
+    <!-- jQuery UI JS -->
+    <script src="{{ asset('template/assets/vendor/jquery-ui/jquery-ui.min.js') }}"></script>
+    <!-- WOW JS -->
+    <script src="{{ asset('template/assets/vendor/wow/wow.min.js') }}"></script>
+    <!-- jQuery Validate -->
+    <script src="{{ asset('template/assets/vendor/jquery-validate/jquery.validate.min.js') }}"></script>
+
+    <!-- Plugins JS -->
+    <script src="{{ asset('template/assets/js/plugins.js') }}"></script>
+    <!-- Main JS -->
+    <script src="{{ asset('template/assets/js/main.js') }}"></script>
+
+    <!-- Livewire Scripts -->
+    @livewireScripts
 </body>
-
 </html>
