@@ -5,7 +5,7 @@
                 <div class="col-12">
                     <nav class="navbar navbar-expand-xl nav-shadow" id="#navbar">
                         <a class="navbar-brand" href="{{ route('home') }}">
-                            <img src="{{ asset('template/assets/images/logo.png') }}" class="logo" alt="HelpMe.co.zw Logo">
+                            <img src="{{ asset('template/assets/images/logo.png') }}" class="logo" alt="HelpMe.co.zw Logo" style="height: 60px;">
                         </a>
                         <a class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                             <i class="bi bi-list"></i>

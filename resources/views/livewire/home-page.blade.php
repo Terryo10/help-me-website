@@ -5,3 +5,4 @@
 
     <livewire:footer />
 </div>
+    
