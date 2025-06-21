@@ -21,8 +21,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'first_name',
-        'last_name',
+        'name',
         'email',
         'phone',
         'password',
@@ -75,10 +74,10 @@ class User extends Authenticatable
      */
     public function initials(): string
     {
-        return Str::of($this->first_name.' '.$this->last_name)
+        return Str::of($this->first_name . ' ' . $this->last_name)
             ->explode(' ')
             ->take(2)
-            ->map(fn ($word) => Str::substr($word, 0, 1))
+            ->map(fn($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
 
@@ -104,7 +103,7 @@ class User extends Authenticatable
 
     public function getFullNameAttribute(): string
     {
-        return $this->first_name.' '.$this->last_name;
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     public function isNonProfit(): bool
