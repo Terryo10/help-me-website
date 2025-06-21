@@ -8,9 +8,14 @@ use App\Livewire\HomePage;
 
 Route::get('/', HomePage::class)->name('home');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', \App\Livewire\Dashboard::class)->name('dashboard');
+    
+    // Campaign routes
+    Route::get('/campaigns', \App\Livewire\CampaignList::class)->name('campaigns.index');
+    Route::get('/campaigns/create', \App\Livewire\CreateCampaign::class)->name('campaigns.create');
+    Route::get('/campaigns/{campaign:slug}', \App\Livewire\CampaignShow::class)->name('campaigns.show');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
