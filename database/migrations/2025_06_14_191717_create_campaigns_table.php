@@ -42,7 +42,6 @@ return new class extends Migration
             $table->index(['status', 'is_featured']);
             $table->index(['user_id', 'status']);
             $table->index('slug');
-            $table->fullText(['title', 'description']);
         });
     }
 

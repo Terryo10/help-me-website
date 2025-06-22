@@ -21,6 +21,8 @@ class Register extends Component
 
     public string $password_confirmation = '';
 
+    public string $user_type = 'individual';
+
     /**
      * Handle an incoming registration request.
      */
@@ -30,6 +32,7 @@ class Register extends Component
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+            'user_type' => ['required', 'string', 'in:individual,non_profit'],
         ]);
 
         $validated['password'] = Hash::make($validated['password']);

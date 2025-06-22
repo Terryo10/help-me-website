@@ -46,6 +46,20 @@
                             </div>
 
                             <div class="input-single">
+                                <label class="label" for="user_type">Account Type</label>
+                                <select class="form-control @error('user_type') is-invalid @enderror" 
+                                        wire:model="user_type" 
+                                        id="user_type" 
+                                        required>
+                                    <option value="individual">Individual</option>
+                                    <option value="non_profit">Non-Profit Organization</option>
+                                </select>
+                                @error('user_type')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="input-single">
                                 <label class="label" for="password">Password</label>
                                 <div class="input-pass">
                                     <input type="password" 
