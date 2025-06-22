@@ -1,3 +1,4 @@
+<div>
 @section('content')
 <livewire:header />
 <div class="section campaign-detail-section section-padding">
@@ -639,3 +640,4 @@
     }
 }</style>
 @endsection
+</div>
