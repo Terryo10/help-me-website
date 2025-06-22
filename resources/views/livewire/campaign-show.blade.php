@@ -1,6 +1,6 @@
 @section('content')
 <livewire:header />
-<div class="campaign-detail-section section-padding">
+<div class="section campaign-detail-section section-padding">
     <div class="container">
         <!-- Breadcrumb -->
         <div class="row mb-4">
@@ -30,9 +30,9 @@
                         <span class="urgent-badge">Urgent</span>
                         @endif
                     </div>
-                    
+
                     <h1 class="campaign-title">{{ $campaign->title }}</h1>
-                    
+
                     <div class="campaign-meta">
                         <div class="organizer">
                             <img src="{{ asset('template/assets/images/avatar-placeholder.png') }}" alt="{{ $campaign->user->name }}" class="organizer-avatar">
@@ -56,8 +56,8 @@
 
                 <!-- Campaign Image -->
                 <div class="campaign-image-container wow fadeInUp">
-                    <img src="{{ $campaign->featured_image ? asset('storage/' . $campaign->featured_image) : asset('template/assets/images/placeholder.png') }}" 
-                         alt="{{ $campaign->title }}" 
+                    <img src="{{ $campaign->featured_image ? asset('storage/' . $campaign->featured_image) : asset('template/assets/images/placeholder.png') }}"
+                         alt="{{ $campaign->title }}"
                          class="campaign-featured-image">
                 </div>
 
@@ -105,13 +105,13 @@
                                 {{ number_format($campaign->progress_percentage, 1) }}%
                             </div>
                         </div>
-                        
+
                         <div class="progress-bar-container">
                             <div class="progress">
                                 <div class="progress-bar" style="width: {{ min($campaign->progress_percentage, 100) }}%"></div>
                             </div>
                         </div>
-                        
+
                         <div class="campaign-stats">
                             <div class="stat">
                                 <strong>{{ $campaign->donation_count }}</strong>
@@ -164,7 +164,7 @@
                     <div class="donation-form-card mt-4 wow fadeInRight">
                         <form wire:submit.prevent="donate">
                             <h4>Make a Donation</h4>
-                            
+
                             <div class="amount-selection mb-3">
                                 <div class="quick-amounts">
                                     <button type="button" wire:click="$set('donationAmount', 10)" class="amount-btn {{ $donationAmount == 10 ? 'active' : '' }}">$10</button>
@@ -173,10 +173,10 @@
                                     <button type="button" wire:click="$set('donationAmount', 100)" class="amount-btn {{ $donationAmount == 100 ? 'active' : '' }}">$100</button>
                                 </div>
                                 <div class="custom-amount mt-2">
-                                    <input type="number" 
-                                           wire:model="donationAmount" 
-                                           class="form-control" 
-                                           placeholder="Custom amount" 
+                                    <input type="number"
+                                           wire:model="donationAmount"
+                                           class="form-control"
+                                           placeholder="Custom amount"
                                            min="{{ $campaign->minimum_donation }}">
                                 </div>
                                 @error('donationAmount') <div class="text-danger">{{ $message }}</div> @enderror
@@ -184,32 +184,32 @@
 
                             @unless(auth()->check())
                             <div class="donor-info mb-3">
-                                <input type="text" 
-                                       wire:model="donorName" 
-                                       class="form-control mb-2" 
+                                <input type="text"
+                                       wire:model="donorName"
+                                       class="form-control mb-2"
                                        placeholder="Your name">
                                 @error('donorName') <div class="text-danger">{{ $message }}</div> @enderror
-                                
-                                <input type="email" 
-                                       wire:model="donorEmail" 
-                                       class="form-control" 
+
+                                <input type="email"
+                                       wire:model="donorEmail"
+                                       class="form-control"
                                        placeholder="Your email">
                                 @error('donorEmail') <div class="text-danger">{{ $message }}</div> @enderror
                             </div>
                             @endunless
 
                             <div class="donation-comment mb-3">
-                                <textarea wire:model="comment" 
-                                          class="form-control" 
-                                          placeholder="Leave a comment (optional)" 
+                                <textarea wire:model="comment"
+                                          class="form-control"
+                                          placeholder="Leave a comment (optional)"
                                           rows="3"></textarea>
                                 @error('comment') <div class="text-danger">{{ $message }}</div> @enderror
                             </div>
 
                             <div class="form-check mb-3">
-                                <input class="form-check-input" 
-                                       type="checkbox" 
-                                       wire:model="isAnonymous" 
+                                <input class="form-check-input"
+                                       type="checkbox"
+                                       wire:model="isAnonymous"
                                        id="anonymous">
                                 <label class="form-check-label" for="anonymous">
                                     Donate anonymously
@@ -220,7 +220,7 @@
                                 <span wire:loading.remove>Donate ${{ $donationAmount }}</span>
                                 <span wire:loading>Processing...</span>
                             </button>
-                            
+
                             <button type="button" wire:click="toggleDonationForm" class="btn btn-secondary w-100 mt-2">
                                 Cancel
                             </button>
@@ -242,7 +242,7 @@
                         <div class="col-md-4">
                             <div class="campaign-card-small">
                                 <div class="campaign-image">
-                                    <img src="{{ $related->featured_image ? asset('storage/' . $related->featured_image) : asset('template/assets/images/placeholder.png') }}" 
+                                    <img src="{{ $related->featured_image ? asset('storage/' . $related->featured_image) : asset('template/assets/images/placeholder.png') }}"
                                          alt="{{ $related->title }}">
                                 </div>
                                 <div class="campaign-content">
@@ -609,31 +609,31 @@
     .campaign-title {
         font-size: 1.5rem;
     }
-    
+
     .campaign-meta {
         flex-direction: column;
         align-items: flex-start;
         gap: 1rem;
     }
-    
+
     .campaign-featured-image {
         height: 250px;
     }
-    
+
     .progress-stats {
         flex-direction: column;
         gap: 1rem;
     }
-    
+
     .campaign-stats {
         flex-wrap: wrap;
         gap: 1rem;
     }
-    
+
     .share-buttons {
         justify-content: center;
     }
-    
+
     .quick-amounts {
         grid-template-columns: repeat(4, 1fr);
     }

@@ -39,7 +39,7 @@ class CreateCampaign extends Component
 
     public function createCampaign()
     {
-        $this->validate();
+        $this->validate($this->rules);
 
         $imagePath = null;
         if ($this->featured_image) {
@@ -65,14 +65,14 @@ class CreateCampaign extends Component
         $campaign->categories()->attach($this->category_ids);
 
         session()->flash('message', 'Campaign created successfully! It will be reviewed before going live.');
-        
+
         return redirect()->route('campaigns.show', $campaign->slug);
     }
 
     public function render()
     {
         $categories = Category::active()->ordered()->get();
-        
+
         return view('livewire.create-campaign', [
             'categories' => $categories
         ])->extends('app');

@@ -1,10 +1,10 @@
 <div>
-   
+
     @section('content')
     <livewire:header />
-  
-    <div class="dashboard-section section-padding mt-20">
-      
+
+    <section class="dashboard-section section">
+
         <div class="container">
             <!-- Header -->
             <div class="row mb-5">
@@ -15,7 +15,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <!-- Stats Cards -->
             <div class="row g-4 mb-5">
                 <div class="col-lg-3 col-md-6">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <!-- Quick Actions -->
             <div class="row mb-5">
                 <div class="col-12">
@@ -83,7 +83,7 @@
                     </div>
                 </div>
             </div>
-    
+
             <!-- Recent Activity -->
             <div class="row">
                 <div class="col-lg-8">
@@ -124,7 +124,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-4">
                     <div class="dashboard-card wow fadeInRight">
                         <div class="card-header">
@@ -152,15 +152,15 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
     <livewire:footer />
-    
+
     <style>
     .dashboard-header {
         text-align: center;
         margin-bottom: 2rem;
     }
-    
+
     .stats-card {
         /* background: rgb(32, 27, 27); */
         padding: 2rem;
@@ -171,11 +171,11 @@
         gap: 1rem;
         transition: transform 0.3s ease;
     }
-    
+
     .stats-card:hover {
         transform: translateY(-5px);
     }
-    
+
     .stats-icon {
         width: 60px;
         height: 60px;
@@ -187,27 +187,27 @@
         color: white;
         font-size: 1.5rem;
     }
-    
+
     .stats-content h3 {
         margin: 0;
         font-size: 1.8rem;
         font-weight: 700;
         color: #333;
     }
-    
+
     .stats-content p {
         margin: 0;
         color: #666;
         font-size: 0.9rem;
     }
-    
+
     .dashboard-card {
         background: white;
         border-radius: 15px;
         box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         margin-bottom: 2rem;
     }
-    
+
     .card-header {
         padding: 1.5rem;
         border-bottom: 1px solid #eee;
@@ -215,125 +215,125 @@
         justify-content: space-between;
         align-items: center;
     }
-    
+
     .card-header h4 {
         margin: 0;
         color: #333;
     }
-    
+
     .view-all {
         color: #f74f22;
         text-decoration: none;
         font-weight: 500;
     }
-    
+
     .campaign-item {
         display: flex;
         gap: 1rem;
         padding: 1rem;
         border-bottom: 1px solid #f0f0f0;
     }
-    
+
     .campaign-item:last-child {
         border-bottom: none;
     }
-    
+
     .campaign-image {
         width: 80px;
         height: 60px;
         border-radius: 8px;
         overflow: hidden;
     }
-    
+
     .campaign-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
     }
-    
+
     .campaign-content {
         flex: 1;
     }
-    
+
     .campaign-content h5 {
         margin: 0 0 0.5rem 0;
         font-size: 1rem;
     }
-    
+
     .campaign-content h5 a {
         color: #333;
         text-decoration: none;
     }
-    
+
     .campaign-meta {
         display: flex;
         justify-content: space-between;
         margin-bottom: 0.5rem;
     }
-    
+
     .badge {
         padding: 0.25rem 0.5rem;
         border-radius: 20px;
         font-size: 0.75rem;
         font-weight: 500;
     }
-    
+
     .badge-success {
         background: #d4edda;
         color: #155724;
     }
-    
+
     .badge-secondary {
         background: #e2e3e5;
         color: #383d41;
     }
-    
+
     .progress-text {
         font-size: 0.8rem;
         color: #666;
     }
-    
+
     .empty-state {
         text-align: center;
         padding: 3rem 1rem;
         color: #666;
     }
-    
+
     .empty-state i {
         font-size: 3rem;
         color: #ddd;
         margin-bottom: 1rem;
     }
-    
+
     .donation-item {
         padding: 1rem;
         border-bottom: 1px solid #f0f0f0;
     }
-    
+
     .donation-item:last-child {
         border-bottom: none;
     }
-    
+
     .donation-content h6 {
         margin: 0 0 0.5rem 0;
         font-size: 0.9rem;
     }
-    
+
     .donation-meta {
         display: flex;
         justify-content: space-between;
         font-size: 0.8rem;
     }
-    
+
     .amount {
         color: #f74f22;
         font-weight: 600;
     }
-    
+
     .date {
         color: #666;
     }
-    
+
     .quick-actions {
         background: white;
         padding: 2rem;
