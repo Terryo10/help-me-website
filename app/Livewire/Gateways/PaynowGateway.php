@@ -23,7 +23,7 @@ class PaynowGateway extends Component
     public function mount($orderId)
     {
         $this->orderId = $orderId;
-        $order = Orders::findOrFail($orderId);
+        $order = Transaction::findOrFail($orderId);
         $this->amount = $order->total;
         $this->site_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
     }
@@ -36,7 +36,7 @@ class PaynowGateway extends Component
         ]);
 
         $this->submitting = "true";
-        $order = Orders::findOrFail($this->orderId);
+        $order = Transaction::findOrFail($this->orderId);
 
         $new_trans = Transaction::updateOrCreate(
             ['order_id' => $this->orderId],
@@ -70,7 +70,7 @@ class PaynowGateway extends Component
                 if ($status->paid()) {
                     $this->submitting = "false";
 
-                    return redirect()->to("/orders")->with('message', 'Your payment was successdull!!');
+                    return redirect()->to("/Transaction")->with('message', 'Your payment was successdull!!');
                 } else {
                     // $this->submitting = "false";
                     // session()->flash('error', 'Why not pay!!');
@@ -92,7 +92,7 @@ class PaynowGateway extends Component
 
         try {
             $transaction = Transaction::where('order_id', $this->orderId)->first();
-            $order = Orders::findOrFail($this->orderId);
+            $order = Transaction::findOrFail($this->orderId);
 
             $pollUrl = $transaction->poll_url;
 
@@ -112,7 +112,7 @@ class PaynowGateway extends Component
                 $order->update(['status' => 'paid']);
                 $this->paymentSent = "false";
 
-                return redirect()->to("/orders")->with('message', 'Your payment was successdull!!');
+                return redirect()->to("/Transaction")->with('message', 'Your payment was successdull!!');
             } else {
                 $this->submittingCheck = "false";
                 $this->submitting = "false";

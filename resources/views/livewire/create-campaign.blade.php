@@ -1,5 +1,4 @@
 <div>
-    @section('content')
     <livewire:header />
 
     <section class="create-campaign-section section section-padding">
@@ -430,7 +429,7 @@
                                     </button>
 
                                     @if($currentStep < $totalSteps)
-                                    <button wire:click="nextStep" type="button"
+                                    <button id="gene_piki" wire:click="nextStep" type="button"
                                             class="btn_theme btn_theme_active"
                                             wire:loading.attr="disabled"
                                             wire:target="nextStep">
@@ -447,12 +446,12 @@
                                             wire:click="submitForReview"
                                             class="btn_theme btn_theme_active"
                                             wire:loading.attr="disabled">
-                                        <span wire:loading.remove wire:target="submitForReview">
+                                        <div wire:loading.remove wire:target="submitForReview">
                                             Submit for Review <i class="bi bi-check-circle"></i>
-                                        </span>
-                                        <span wire:loading wire:target="submitForReview">
+                                        </div>
+                                        <div wire:loading wire:target="submitForReview">
                                             Submitting...
-                                        </span>
+                                        </div>
                                     </button>
                                     @endif
                                 </div>
@@ -945,5 +944,5 @@
         }
     }
     </style>
-    @endsection
+
 </div>

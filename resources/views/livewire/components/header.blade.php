@@ -127,7 +127,7 @@
                             </li>
                             @auth
                                 <li class="menu_item">
-                                    <a class="menu_link" href="{{ route('dashboard') }}">Dashboard</a>
+                                    <a wire:navigate class="menu_link" href="{{ route('dashboard') }}">Dashboard</a>
                                 </li>
                                 <li class="menu_item">
                                     <form method="POST" action="{{ route('logout') }}">
@@ -137,7 +137,7 @@
                                 </li>
                             @else
                                 <li class="menu_item">
-                                    <a class="menu_link" href="{{ route('login') }}">Sign In</a>
+                                    <a wire:navigate class="menu_link" href="{{ route('login') }}">Sign In</a>
                                 </li>
                                 <li class="menu_item">
                                     <a class="menu_link" href="#">Start Campaign</a>
