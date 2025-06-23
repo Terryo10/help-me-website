@@ -1,7 +1,7 @@
 <div>
     @section('content')
     <livewire:header />
-    
+
     <section class="create-campaign-section section section-padding">
         <div class="container">
             <div class="row justify-content-center">
@@ -53,6 +53,18 @@
                         @if (session()->has('error'))
                             <div class="alert alert-danger wow fadeInUp mb-4">
                                 {{ session('error') }}
+                            </div>
+                        @endif
+
+                        <!-- Validation Errors Summary -->
+                        @if ($errors->any())
+                            <div class="alert alert-danger wow fadeInUp mb-4">
+                                <h6><i class="bi bi-exclamation-circle"></i> Please fix the following errors:</h6>
+                                <ul class="mb-0">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
                             </div>
                         @endif
 
@@ -310,7 +322,7 @@
                                                 <div class="col-md-3">
                                                     <div class="gallery-item">
                                                         <img src="{{ $image->temporaryUrl() }}" alt="Gallery Image {{ $index + 1 }}">
-                                                        <button type="button" 
+                                                        <button type="button"
                                                                 wire:click="removeGalleryImage({{ $index }})"
                                                                 class="remove-btn">
                                                             <i class="bi bi-x"></i>
@@ -395,8 +407,8 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     @if($currentStep > 1)
-                                    <button type="button" 
-                                            wire:click="previousStep" 
+                                    <button type="button"
+                                            wire:click="previousStep"
                                             class="btn btn-outline-secondary">
                                         <i class="bi bi-arrow-left"></i> Previous
                                     </button>
@@ -405,28 +417,34 @@
 
                                 <div class="d-flex gap-3">
                                     <!-- Save Draft Button (available on all steps) -->
-                                    <button type="button" 
-                                            wire:click="saveDraft" 
+                                    <button type="button"
+                                            wire:click="saveDraft"
                                             class="btn btn-outline-primary"
                                             wire:loading.attr="disabled">
-                                        <span wire:loading.remove wire:target="saveDraft">
+                                        <div wire:loading.remove wire:target="saveDraft">
                                             <i class="bi bi-save"></i> Save Draft
-                                        </span>
-                                        <span wire:loading wire:target="saveDraft">
+                                        </div>
+                                        <div wire:loading wire:target="saveDraft">
                                             Saving...
-                                        </span>
+                                        </div>
                                     </button>
 
                                     @if($currentStep < $totalSteps)
-                                    <button type="button" 
-                                            wire:click="nextStep" 
-                                            class="btn_theme btn_theme_active">
-                                        Next <i class="bi bi-arrow-right"></i>
+                                    <button wire:click="nextStep" type="button"
+                                            class="btn_theme btn_theme_active"
+                                            wire:loading.attr="disabled"
+                                            wire:target="nextStep">
+                                        <div wire:loading.remove wire:target="nextStep">
+                                            Next <i class="bi bi-arrow-right"></i>
+                                        </div>
+                                        <div wire:loading wire:target="nextStep">
+                                            <i class="bi bi-hourglass-split"></i> Validating...
+                                        </div>
                                     </button>
                                     @else
                                     <!-- Final submission buttons -->
-                                    <button type="button" 
-                                            wire:click="submitForReview" 
+                                    <button type="button"
+                                            wire:click="submitForReview"
                                             class="btn_theme btn_theme_active"
                                             wire:loading.attr="disabled">
                                         <span wire:loading.remove wire:target="submitForReview">
@@ -445,7 +463,7 @@
             </div>
         </div>
     </section>
-    
+
     <livewire:footer />
 
     <style>

@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('template/assets/images/favicon.png') }}" type="image/x-icon">
-    
+
     <title>{{ isset($title) ? $title . ' - ' : '' }}HelpMe.co.zw - Zimbabwe's Premier Fundraising Platform</title>
-    
+
     <!-- SEO Meta Tags -->
     <meta name="keywords" content="Zimbabwe fundraising, donate Zimbabwe, crowdfunding Zimbabwe, help Zimbabwe, charity Zimbabwe">
     <meta name="description" content="HelpMe.co.zw - Zimbabwe's trusted fundraising platform. Create campaigns, donate to causes, and make a difference in communities across Zimbabwe.">
@@ -29,10 +29,10 @@
     <link rel="stylesheet" href="{{ asset('template/assets/vendor/odometer/css/odometer.css') }}">
     <!-- Animate CSS -->
     <link rel="stylesheet" href="{{ asset('template/assets/vendor/animate/animate.css') }}">
-    
+
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('template/assets/css/style.css') }}">
-    
+
     <!-- Livewire Styles -->
     @livewireStyles
 </head>
@@ -43,6 +43,8 @@
     </div>
      <main>
         @yield('content')
+        <!-- Livewire Scripts -->
+        @livewireScripts
     </main>
 
     <!-- Scroll to Top -->
@@ -77,7 +79,5 @@
     <!-- Main JS -->
     <script src="{{ asset('template/assets/js/main.js') }}"></script>
 
-    <!-- Livewire Scripts -->
-    @livewireScripts
 </body>
 </html>

@@ -18,36 +18,36 @@ class CreateCampaign extends Component
     public $title = '';
     public $description = '';
     public $story = '';
-    
+
     // Financial Details
     public $goal_amount = '';
     public $currency = 'USD';
     public $minimum_donation = 1;
-    
+
     // Campaign Details
     public $end_date = '';
     public $location = '';
     public $category_ids = [];
-    
+
     // Media
     public $featured_image;
     public $gallery = [];
     public $existing_gallery = [];
-    
+
     // Beneficiary Information
     public $beneficiary_name = '';
     public $beneficiary_relationship = '';
     public $beneficiary_age = '';
     public $beneficiary_contact = '';
-    
+
     // Settings
     public $allow_anonymous_donations = true;
     public $status = 'draft'; // draft, pending
-    
+
     // Campaign Updates
     public $initial_update_title = '';
     public $initial_update_content = '';
-    
+
     // Step management
     public $currentStep = 1;
     public $totalSteps = 5;
@@ -104,7 +104,7 @@ class CreateCampaign extends Component
     public function nextStep()
     {
         $this->validateCurrentStep();
-        
+
         if ($this->currentStep < $this->totalSteps) {
             $this->currentStep++;
         }
@@ -136,37 +136,54 @@ class CreateCampaign extends Component
     protected function validateStep($step)
     {
         $rules = [];
-        
+
         switch ($step) {
             case 1: // Basic Information
                 $rules = [
                     'title' => 'required|string|max:255',
                     'description' => 'required|string|max:500',
                     'category_ids' => 'required|array|min:1',
+                    'category_ids.*' => 'exists:categories,id',
+                    'end_date' => 'nullable|date|after:today',
+                    'location' => 'nullable|string|max:255',
                 ];
                 break;
-                
+
             case 2: // Detailed Story
                 $rules = [
                     'story' => 'required|string|min:100',
+                    'beneficiary_name' => 'nullable|string|max:255',
+                    'beneficiary_relationship' => 'nullable|string|max:255',
+                    'beneficiary_age' => 'nullable|integer|min:1|max:120',
+                    'beneficiary_contact' => 'nullable|string|max:255',
                 ];
                 break;
-                
+
             case 3: // Financial Details
                 $rules = [
                     'goal_amount' => 'required|numeric|min:1',
                     'minimum_donation' => 'required|numeric|min:1',
+                    'currency' => 'required|in:USD,ZWL',
                 ];
                 break;
-                
+
             case 4: // Media Upload
+                $rules = [
+                    'featured_image' => 'nullable|image|max:2048',
+                    'gallery.*' => 'nullable|image|max:2048',
+                ];
+
                 if ($this->status === 'pending') {
                     $rules['featured_image'] = 'required|image|max:2048';
                 }
                 break;
-                
+
             case 5: // Review & Settings
-                // Final validation happens in createCampaign method
+                $rules = [
+                    'allow_anonymous_donations' => 'boolean',
+                    'initial_update_title' => 'nullable|string|max:255',
+                    'initial_update_content' => 'nullable|string',
+                ];
                 break;
         }
 
@@ -251,14 +268,14 @@ class CreateCampaign extends Component
                 ]);
             }
 
-            $message = $this->status === 'draft' 
-                ? 'Campaign saved as draft successfully!' 
+            $message = $this->status === 'draft'
+                ? 'Campaign saved as draft successfully!'
                 : 'Campaign submitted for review successfully!';
-                
+
             session()->flash('message', $message);
-            
+
             return redirect()->route('campaigns.show', $campaign->slug);
-            
+
         } catch (\Exception $e) {
             session()->flash('error', 'An error occurred while creating your campaign. Please try again.');
             logger('Campaign creation error: ' . $e->getMessage());
@@ -269,14 +286,14 @@ class CreateCampaign extends Component
     {
         $baseSlug = Str::slug($title);
         $slug = $baseSlug . '-' . time();
-        
+
         // Ensure uniqueness
         $count = 1;
         while (Campaign::where('slug', $slug)->exists()) {
             $slug = $baseSlug . '-' . time() . '-' . $count;
             $count++;
         }
-        
+
         return $slug;
     }
 
