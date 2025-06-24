@@ -78,7 +78,7 @@ class CreateCampaign extends Component
 
         // Conditional rules based on current step
         if ($this->currentStep >= 4 && $this->status === 'pending') {
-            $rules['featured_image'] = 'required|image|max:2048';
+            $rules['featured_image'] = 'nullable|image|max:2048';
         }
 
         return $rules;
@@ -151,7 +151,7 @@ class CreateCampaign extends Component
 
             case 2: // Detailed Story
                 $rules = [
-                    'story' => 'required|string|min:100',
+                    'story' => 'required|string|min:10',
                     'beneficiary_name' => 'nullable|string|max:255',
                     'beneficiary_relationship' => 'nullable|string|max:255',
                     'beneficiary_age' => 'nullable|integer|min:1|max:120',
@@ -174,13 +174,13 @@ class CreateCampaign extends Component
                 ];
 
                 if ($this->status === 'pending') {
-                    $rules['featured_image'] = 'required|image|max:2048';
+                    $rules['featured_image'] = 'nullable|image|max:2048';
                 }
                 break;
 
             case 5: // Review & Settings
                 $rules = [
-                    'allow_anonymous_donations' => 'boolean',
+                    'allow_anonymous_donations' => 'nullable|boolean',
                     'initial_update_title' => 'nullable|string|max:255',
                     'initial_update_content' => 'nullable|string',
                 ];
