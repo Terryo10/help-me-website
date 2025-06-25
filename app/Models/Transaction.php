@@ -24,6 +24,12 @@ class Transaction extends Model
         'description',
         'metadata',
         'processed_at',
+        'reference',
+        'order_id',
+        'user_id',
+        'total',
+        'isPaid',
+        'poll_url',
     ];
 
     protected $casts = [
