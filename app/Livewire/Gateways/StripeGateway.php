@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Gateways;
 
+use App\Models\Donation;
 use Livewire\Component;
 use App\Models\Transaction;
 use Exception;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Http;
 
 class StripeGateway extends Component
 {
-    public $orderId;
+    public $donation_id;
     public $amount;
     public $site_url;
     public $email;
@@ -25,11 +26,11 @@ class StripeGateway extends Component
     public $clientSecret;
     public $paymentIntentId;
 
-    public function mount($orderId)
+    public function mount($donation_id)
     {
-        $this->orderId = $orderId;
-        $order = Transaction::findOrFail($orderId);
-        $this->amount = $order->amount;
+        $this->donation_id = $donation_id;
+        $donation = Donation::findOrFail($donation_id);
+        $this->amount = $donation->amount;
         $this->site_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
         $this->email = Auth::user()->email;
         $this->cardholderName = Auth::user()->name;
@@ -47,19 +48,19 @@ class StripeGateway extends Component
         ]);
 
         $this->submitting = "true";
-        $order = Transaction::findOrFail($this->orderId);
+        $donation = Donation::findOrFail($this->donation_id);
 
         $new_trans = Transaction::updateOrCreate(
-            ['id' => $this->orderId],
+            ['donation_id' => $donation->id],
             [
                 'transaction_id' => $this->generateRandomId(),
-                'donation_id' => $order->donation_id ?? 1,
+                'donation_id' => $donation->id ?? 1,
                 'payment_gateway_id' => 2, // Assuming Stripe gateway ID
                 'type' => 'donation',
-                'amount' => $order->amount,
+                'amount' => $donation->amount,
                 'currency' => 'USD',
                 'status' => 'pending',
-                'description' => "Donation payment for order #" . $order->id
+                'description' => "Donation payment for order #" . $donation->id
             ]
         );
 
@@ -118,7 +119,7 @@ class StripeGateway extends Component
         $this->paymentSent = "false";
 
         try {
-            $transaction = Transaction::findOrFail($this->orderId);
+            $transaction = Transaction::findOrFail($this->transaction_id);
 
             if ($transaction->gateway_transaction_id) {
                 $paymentIntent = $this->getStripePaymentIntent($transaction->gateway_transaction_id);
@@ -199,7 +200,7 @@ class StripeGateway extends Component
             'payment_method_data[card][cvc]' => $this->cvc,
             'payment_method_data[billing_details][name]' => $this->cardholderName,
             'payment_method_data[billing_details][email]' => $this->email,
-            'return_url' => $this->site_url . '/stripe-return/' . $this->orderId,
+            'return_url' => $this->site_url . '/stripe-return/' . $this->transaction_id,
         ]);
 
         if ($response->successful()) {

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Gateways;
 
+use App\Models\Donation;
 use Livewire\Component;
 use App\Models\Transaction;
 use Exception;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Http;
 
 class PaypalGateway extends Component
 {
-    public $orderId;
+    public $donation_id;
     public $amount;
     public $site_url;
     public $email;
@@ -19,11 +20,11 @@ class PaypalGateway extends Component
     public $paymentSent = "false";
     public $paymentUrl;
 
-    public function mount($orderId)
+    public function mount($donation_id)
     {
-        $this->orderId = $orderId;
-        $order = Transaction::findOrFail($orderId);
-        $this->amount = $order->amount;
+        $this->donation_id = $donation_id;
+        $donation = Donation::findOrFail($donation_id);
+        $this->amount = $donation->amount;
         $this->site_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
         $this->email = Auth::user()->email;
     }
@@ -35,36 +36,36 @@ class PaypalGateway extends Component
         ]);
 
         $this->submitting = "true";
-        $order = Transaction::findOrFail($this->orderId);
+        $donation = Donation::findOrFail($this->donation_id);
 
         $new_trans = Transaction::updateOrCreate(
-            ['id' => $this->orderId],
+            ['donation_id' => $donation->id],
             [
-                'transaction_id' => $this->generateRandomId(),
-                'donation_id' => $order->donation_id ?? 1,
+                'donation_random_id' => $this->generateRandomId(),
+                'donation_id' => $donation->id ?? 1,
                 'payment_gateway_id' => 1, // Assuming PayPal gateway ID
                 'type' => 'donation',
-                'amount' => $order->amount,
+                'amount' => $donation->amount,
                 'currency' => 'USD',
                 'status' => 'pending',
-                'description' => "Donation payment for order #" . $order->id
+                'description' => "Donation payment for transaction #" . $donation->id
             ]
         );
 
         try {
-            $paypalOrder = $this->createPayPalOrder($new_trans);
+            $paypalTransaction = $this->createPayPalOrder($new_trans);
 
-            if ($paypalOrder && isset($paypalOrder['id'])) {
+            if ($paypalTransaction && isset($paypalTransaction['id'])) {
                 $new_trans->update([
-                    'gateway_transaction_id' => $paypalOrder['id'],
-                    'gateway_response' => $paypalOrder,
+                    'gateway_donation_id' => $paypalTransaction['id'],
+                    'gateway_response' => $paypalTransaction,
                     'status' => 'processing'
                 ]);
 
                 // Get approval URL from PayPal response
                 $approvalUrl = null;
-                if (isset($paypalOrder['links'])) {
-                    foreach ($paypalOrder['links'] as $link) {
+                if (isset($paypalTransaction['links'])) {
+                    foreach ($paypalTransaction['links'] as $link) {
                         if ($link['rel'] === 'approve') {
                             $approvalUrl = $link['href'];
                             break;
@@ -103,16 +104,16 @@ class PaypalGateway extends Component
         $this->paymentSent = "false";
 
         try {
-            $transaction = Transaction::findOrFail($this->orderId);
+            $transaction = Transaction::findOrFail($this->transacytion_id);
 
-            if ($transaction->gateway_transaction_id) {
-                $paypalOrder = $this->getPayPalOrder($transaction->gateway_transaction_id);
+            if ($transaction->gateway_donation_id) {
+                $paypalTransaction = $this->getPayPalOrder($transaction->gateway_donation_id);
 
-                if ($paypalOrder && isset($paypalOrder['status'])) {
-                    if ($paypalOrder['status'] === 'COMPLETED') {
+                if ($paypalTransaction && isset($paypalTransaction['status'])) {
+                    if ($paypalTransaction['status'] === 'COMPLETED') {
                         $transaction->update([
                             'status' => 'completed',
-                            'gateway_response' => $paypalOrder,
+                            'gateway_response' => $paypalTransaction,
                             'processed_at' => now()
                         ]);
 
@@ -121,9 +122,9 @@ class PaypalGateway extends Component
                         $this->paymentSent = "false";
 
                         return redirect()->to("/transaction/" . $transaction->id)->with('message', 'Payment completed successfully!');
-                    } else if ($paypalOrder['status'] === 'APPROVED') {
+                    } else if ($paypalTransaction['status'] === 'APPROVED') {
                         // Capture the payment
-                        $captureResult = $this->capturePayPalOrder($transaction->gateway_transaction_id);
+                        $captureResult = $this->capturePayPalOrder($transaction->gateway_donation_id);
 
                         if ($captureResult && isset($captureResult['status']) && $captureResult['status'] === 'COMPLETED') {
                             $transaction->update([
@@ -170,7 +171,7 @@ class PaypalGateway extends Component
             'intent' => 'CAPTURE',
             'purchase_units' => [
                 [
-                    'reference_id' => $transaction->transaction_id,
+                    'reference_id' => $transaction->donation_id,
                     'amount' => [
                         'currency_code' => 'USD',
                         'value' => number_format($transaction->amount, 2, '.', '')
@@ -198,7 +199,7 @@ class PaypalGateway extends Component
         throw new Exception('PayPal API Error: ' . $response->body());
     }
 
-    private function getPayPalOrder($orderId)
+    private function getPayPalOrder($donation_id)
     {
         $accessToken = $this->getPayPalAccessToken();
 
@@ -208,7 +209,7 @@ class PaypalGateway extends Component
 
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->get($this->getPayPalApiUrl() . '/v2/checkout/orders/' . $orderId);
+        ])->get($this->getPayPalApiUrl() . '/v2/checkout/orders/' . $donation_id);
 
         if ($response->successful()) {
             return $response->json();
@@ -217,7 +218,7 @@ class PaypalGateway extends Component
         return null;
     }
 
-    private function capturePayPalOrder($orderId)
+    private function capturePayPalOrder($donation_id)
     {
         $accessToken = $this->getPayPalAccessToken();
 
@@ -228,7 +229,7 @@ class PaypalGateway extends Component
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
             'Authorization' => 'Bearer ' . $accessToken,
-        ])->post($this->getPayPalApiUrl() . '/v2/checkout/orders/' . $orderId . '/capture');
+        ])->post($this->getPayPalApiUrl() . '/v2/checkout/orders/' . $donation_id . '/capture');
 
         if ($response->successful()) {
             return $response->json();

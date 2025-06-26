@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Gateways;
 
+use App\Models\Donation;
 use Livewire\Component;
 
 use App\Models\Transaction;
@@ -12,7 +13,7 @@ use Paynow\Payments\Paynow;
 class PaynowGateway extends Component
 {
 
-    public $orderId;
+    public $donation_id;
     public $amount;
     public $site_url;
     public $phone;
@@ -20,11 +21,11 @@ class PaynowGateway extends Component
     public $submittingCheck = "false";
     public $paymentSent = "false";
 
-    public function mount($orderId)
+    public function mount($donation_id)
     {
-        $this->orderId = $orderId;
-        $order = Transaction::findOrFail($orderId);
-        $this->amount = $order->total;
+        $this->donation_id = $donation_id;
+        $donation = Donation::findOrFail($donation_id);
+        $this->amount = $donation->total;
         $this->site_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
     }
 
@@ -36,21 +37,26 @@ class PaynowGateway extends Component
         ]);
 
         $this->submitting = "true";
-        $order = Transaction::findOrFail($this->orderId);
+        $donation = Donation::findOrFail($this->donation_id);
 
         $new_trans = Transaction::updateOrCreate(
-            ['order_id' => $this->orderId],
+            ['donation_id' => $this->donation_id],
             [
-                'user_id' => Auth::user()->id,
-                'type' => 'paynow',
-                'total' => $order->total
+               'donation_random_id' => $this->generateRandomId(),
+                'donation_id' => $donation->id ?? 1,
+                'payment_gateway_id' => 1, // Assuming PayPal gateway ID
+                'type' => 'donation',
+                'amount' => $donation->amount,
+                'currency' => 'USD',
+                'status' => 'pending',
+                'description' => "Donation payment for transaction #" . $donation->id
             ]
         );
 
         try {
             $uuid = $this->generateRandomId();
             $payment = $this->paynow($new_trans->id, "paynow")->createPayment("$uuid", Auth::user()->email);
-            $payment->add("Invoice Payment With id of " . $order->id, $order->total);
+            $payment->add("Invoice Payment With id of " . $donation->id, $donation->amount);
             $response = $this->paynow($new_trans->id, "paynow")->sendMobile($payment, $this->phone, 'ecocash');
             if ($response->success) {
                 $update_tran = Transaction::find($new_trans->id);
@@ -91,14 +97,14 @@ class PaynowGateway extends Component
         $this->paymentSent = "false";
 
         try {
-            $transaction = Transaction::where('order_id', $this->orderId)->first();
-            $order = Transaction::findOrFail($this->orderId);
+            $transaction = Transaction::where('donation_id', $this->donation_id)->first();
+            $donation = Donation::findOrFail($this->donation_id);
 
             $pollUrl = $transaction->poll_url;
 
 
             // sleep(15);
-            $status = $this->paynow($this->orderId, "paynow")->pollTransaction($pollUrl);
+            $status = $this->paynow($this->donation_id, "paynow")->pollTransaction($pollUrl);
 
             if ($status->status() === "sent") {
                 session()->flash('message', 'Payment was unsuccessfull please try repaying again!!');
@@ -108,8 +114,8 @@ class PaynowGateway extends Component
             if ($status->paid()) {
                 $this->submittingCheck = "false";
                 $this->submitting = "false";
-                $transaction->update(['isPaid' => "true"]);
-                $order->update(['status' => 'paid']);
+                $transaction->update(['status' => "paid"]);
+                $donation->update(['status' => 'paid']);
                 $this->paymentSent = "false";
 
                 return redirect()->to("/Transaction")->with('message', 'Your payment was successdull!!');
