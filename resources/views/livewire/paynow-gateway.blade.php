@@ -1,3 +1,13 @@
 <div>
-    {{-- Care about people's approval and you will be their prisoner. --}}
+    <livewire:header />
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Paynow Gateway</h1>
+            </div>
+        </div>
+    </div>
+
+    <livewire:footer />
 </div>

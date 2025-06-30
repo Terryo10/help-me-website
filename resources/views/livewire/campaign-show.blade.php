@@ -216,6 +216,19 @@
                                 </label>
                             </div>
 
+                            <div class="amount-selection mb-3">
+                                <label class="form-check-label" for="anonymous">
+                                    Choose Payment Method
+                                </label>
+                                <div class="quick-amounts">
+                                    <button type="button" wire:click="$set('selected_gateway', 'ecocash')" class="amount-btn {{ $selected_gateway == 'ecocash' ? 'active' : '' }}">Ecocash</button>
+                                    <button type="button" wire:click="$set('selected_gateway', 'paypal')" class="amount-btn {{ $selected_gateway == 'paypal' ? 'active' : '' }}">Paypal</button>
+                                    <button type="button" wire:click="$set('selected_gateway', 'stripe')" class="amount-btn {{ $selected_gateway == 'stripe' ? 'active' : '' }}">One Money</button>
+                                </div>
+
+                                @error('selected_gateway') <div class="text-danger">{{ $message }}</div> @enderror
+                            </div>
+
                             <button type="submit" class="btn_theme btn_theme_active w-100" wire:loading.attr="disabled">
                                 <div wire:loading.remove>Continue With ${{ $donationAmount }}</div>
                                 <div wire:loading>Processing...</div>

@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\HomePage;
 
 Route::get('/', \App\Livewire\HomePage::class)->name('home');
-Route::get('/complete/donation/{donation_id}', \App\Livewire\Components\CompleteDonationSetup::class)->name('complete-setup');
+Route::get('/payment/ecocash/{donation_id}', \App\Livewire\Gateways\PaynowGateway::class)->name('transaction.ecocash');
+Route::get('/payment/paypal/{donation_id}', \App\Livewire\Gateways\PaypalGateway::class)->name('transaction.paypal');
+Route::get('/payment/stripe/{donation_id}', \App\Livewire\Gateways\StripeGateway::class)->name('transaction.stripe');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', \App\Livewire\Dashboard::class)->name('dashboard');

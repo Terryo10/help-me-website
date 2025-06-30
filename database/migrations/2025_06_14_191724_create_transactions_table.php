@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('transaction_id')->unique();
+            $table->string('transaction_id')->nullable();
             $table->foreignId('donation_id')->constrained()->onDelete('cascade');
             $table->foreignId('payment_gateway_id')->constrained()->nullable();
 
@@ -24,6 +24,7 @@ return new class extends Migration
 
             // Gateway specific
             $table->string('gateway_transaction_id')->nullable();
+            $table->string('reference')->nullable();
             $table->string('gateway_reference')->nullable();
             $table->json('gateway_response')->nullable();
 

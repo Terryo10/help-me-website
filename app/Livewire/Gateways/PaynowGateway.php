@@ -25,7 +25,7 @@ class PaynowGateway extends Component
     {
         $this->donation_id = $donation_id;
         $donation = Donation::findOrFail($donation_id);
-        $this->amount = $donation->total;
+        $this->amount = $donation->amount;
         $this->site_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
     }
 
@@ -43,8 +43,7 @@ class PaynowGateway extends Component
             ['donation_id' => $this->donation_id],
             [
                'donation_random_id' => $this->generateRandomId(),
-                'donation_id' => $donation->id ?? 1,
-                'payment_gateway_id' => 1, // Assuming PayPal gateway ID
+                'donation_id' => $this->donation_id,
                 'type' => 'donation',
                 'amount' => $donation->amount,
                 'currency' => 'USD',
@@ -60,7 +59,7 @@ class PaynowGateway extends Component
             $response = $this->paynow($new_trans->id, "paynow")->sendMobile($payment, $this->phone, 'ecocash');
             if ($response->success) {
                 $update_tran = Transaction::find($new_trans->id);
-                $update_tran->update(['poll_url' => $response->pollUrl()]);
+                $update_tran->update(['reference' => $response->pollUrl()]);
 
                 $pollUrl = $response->pollUrl();
 
@@ -100,7 +99,7 @@ class PaynowGateway extends Component
             $transaction = Transaction::where('donation_id', $this->donation_id)->first();
             $donation = Donation::findOrFail($this->donation_id);
 
-            $pollUrl = $transaction->poll_url;
+            $pollUrl = $transaction->reference;
 
 
             // sleep(15);
@@ -150,6 +149,6 @@ class PaynowGateway extends Component
     }
     public function render()
     {
-        return view('livewire.gateways.paynow-gateway');
+        return view('livewire.gateways.paynow-gateway')->extends('app');
     }
 }

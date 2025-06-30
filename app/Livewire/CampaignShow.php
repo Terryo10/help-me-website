@@ -10,6 +10,7 @@ class CampaignShow extends Component
 {
     public Campaign $campaign;
     public $donationAmount = 10;
+    public $selected_gateway = 'ecocash';
     public $donorName = '';
     public $donorEmail = '';
     public $comment = '';
@@ -36,6 +37,7 @@ class CampaignShow extends Component
     {
         $this->validate([
             'donationAmount' => 'required|numeric|min:' . $this->campaign->minimum_donation,
+            'selected_gateway' => 'required',
             'donorName' => 'required_unless:isAnonymous,true|string|max:255',
             'donorEmail' => 'required_unless:isAnonymous,true|email',
             'comment' => 'nullable|string|max:500',
@@ -52,14 +54,21 @@ class CampaignShow extends Component
             'amount' => $this->donationAmount,
             'currency' => $this->campaign->currency,
             'comment' => $this->comment,
-            'status' => 'pending',
-            'payment_gateway_id' => 1, // Default gateway
+            'status' => 'pending', // Default gateway
         ]);
 
         session()->flash('message', 'Thank you for your donation! You will be redirected to payment.');
 
+        if ($this->selected_gateway == 'ecocash') {
+            return redirect('/payment/ecocash/'.$donation->id);
+        } else if ($this->selected_gateway == 'paypal') {
+            return redirect('/payment/paypal/'.$donation->id);
+        }else if ($this->selected_gateway == 'stripe') {
+            return redirect('/payment/stripe/'.$donation->id);
+        }
+
         // Redirect to payment page
-        return redirect()->route('payment.process', $donation->donation_id);
+        return redirect()->back();
     }
 
     public function render()
