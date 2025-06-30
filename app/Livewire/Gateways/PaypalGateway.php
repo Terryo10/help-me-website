@@ -43,7 +43,6 @@ class PaypalGateway extends Component
             [
                 'donation_random_id' => $this->generateRandomId(),
                 'donation_id' => $donation->id ?? 1,
-                'payment_gateway_id' => 1, // Assuming PayPal gateway ID
                 'type' => 'donation',
                 'amount' => $donation->amount,
                 'currency' => 'USD',
@@ -276,6 +275,6 @@ class PaypalGateway extends Component
 
     public function render()
     {
-        return view('livewire.gateways.paypal-gateway');
+        return view('livewire.gateways.paypal-gateway')->extends('app');
     }
 }

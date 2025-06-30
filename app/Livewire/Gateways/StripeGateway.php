@@ -54,8 +54,7 @@ class StripeGateway extends Component
             ['donation_id' => $donation->id],
             [
                 'transaction_id' => $this->generateRandomId(),
-                'donation_id' => $donation->id ?? 1,
-                'payment_gateway_id' => 2, // Assuming Stripe gateway ID
+                'donation_id' => $this->donation_id ?? 1,
                 'type' => 'donation',
                 'amount' => $donation->amount,
                 'currency' => 'USD',
@@ -230,6 +229,6 @@ class StripeGateway extends Component
 
     public function render()
     {
-        return view('livewire.gateways.stripe-gateway');
+        return view('livewire.gateways.stripe-gateway')->extends('app');
     }
 }
