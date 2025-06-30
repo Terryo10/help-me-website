@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('transaction_id')->unique();
             $table->foreignId('donation_id')->constrained()->onDelete('cascade');
-            $table->foreignId('payment_gateway_id')->constrained();
+            $table->foreignId('payment_gateway_id')->constrained()->nullable();
 
             $table->enum('type', ['donation', 'refund', 'chargeback', 'fee']);
             $table->decimal('amount', 10, 2);
