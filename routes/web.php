@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\HomePage;
 
 Route::get('/', \App\Livewire\HomePage::class)->name('home');
+Route::get('/complete/donation/{donation_id}', \App\Livewire\Components\CompleteDonationSetup::class)->name('complete-setup');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', \App\Livewire\Dashboard::class)->name('dashboard');
