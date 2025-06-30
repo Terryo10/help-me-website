@@ -223,7 +223,7 @@
                                 <div class="quick-amounts">
                                     <button type="button" wire:click="$set('selected_gateway', 'ecocash')" class="amount-btn {{ $selected_gateway == 'ecocash' ? 'active' : '' }}">Ecocash</button>
                                     <button type="button" wire:click="$set('selected_gateway', 'paypal')" class="amount-btn {{ $selected_gateway == 'paypal' ? 'active' : '' }}">Paypal</button>
-                                    <button type="button" wire:click="$set('selected_gateway', 'stripe')" class="amount-btn {{ $selected_gateway == 'stripe' ? 'active' : '' }}">One Money</button>
+                                    <button type="button" wire:click="$set('selected_gateway', 'stripe')" class="amount-btn {{ $selected_gateway == 'stripe' ? 'active' : '' }}">Stripe</button>
                                 </div>
 
                                 @error('selected_gateway') <div class="text-danger">{{ $message }}</div> @enderror
