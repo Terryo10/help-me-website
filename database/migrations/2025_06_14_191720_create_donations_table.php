@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('donation_id')->unique(); // Custom donation ID
             $table->foreignId('campaign_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
-            $table->foreignId('payment_gateway_id')->constrained();
+            $table->foreignId('payment_gateway_id')->constrained()->nullable();
 
             // Donor information (for anonymous donations)
             $table->string('donor_name')->nullable();
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->decimal('amount', 10, 2);
             $table->string('currency', 3)->default('USD');
             $table->decimal('fee_amount', 10, 2)->default(0);
-            $table->decimal('net_amount', 10, 2); // Amount after fees
+            $table->decimal('net_amount', 10, 2)->default(0); // Amount after fees
 
             // Payment details
             $table->string('payment_reference')->nullable();

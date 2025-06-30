@@ -20,7 +20,7 @@ class CampaignShow extends Component
     {
         $this->campaign = $campaign;
         $campaign->increment('view_count');
-        
+
         if (auth()->check()) {
             $this->donorName = auth()->user()->name;
             $this->donorEmail = auth()->user()->email;
@@ -57,7 +57,7 @@ class CampaignShow extends Component
         ]);
 
         session()->flash('message', 'Thank you for your donation! You will be redirected to payment.');
-        
+
         // Redirect to payment page
         return redirect()->route('payment.process', $donation->donation_id);
     }

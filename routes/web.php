@@ -6,7 +6,7 @@ use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\HomePage;
 
-Route::get('/', HomePage::class)->name('home');
+Route::get('/', \App\Livewire\HomePage::class)->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', \App\Livewire\Dashboard::class)->name('dashboard');

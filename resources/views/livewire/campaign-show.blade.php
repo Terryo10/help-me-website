@@ -1,5 +1,4 @@
 <div>
-@section('content')
 <livewire:header />
 <div class="section campaign-detail-section section-padding">
     <div class="container">
@@ -218,8 +217,8 @@
                             </div>
 
                             <button type="submit" class="btn_theme btn_theme_active w-100" wire:loading.attr="disabled">
-                                <span wire:loading.remove>Donate ${{ $donationAmount }}</span>
-                                <span wire:loading>Processing...</span>
+                                <div wire:loading.remove>Continue With ${{ $donationAmount }}</div>
+                                <div wire:loading>Processing...</div>
                             </button>
 
                             <button type="button" wire:click="toggleDonationForm" class="btn btn-secondary w-100 mt-2">
@@ -639,5 +638,4 @@
         grid-template-columns: repeat(4, 1fr);
     }
 }</style>
-@endsection
 </div>
