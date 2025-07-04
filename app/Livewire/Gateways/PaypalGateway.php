@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Http;
 class PaypalGateway extends Component
 {
     public $donation_id;
+    public $transaction_id;
     public $amount;
     public $site_url;
     public $email;
@@ -24,6 +25,8 @@ class PaypalGateway extends Component
     {
         $this->donation_id = $donation_id;
         $donation = Donation::findOrFail($donation_id);
+        $transaction_latest_donation = Transaction::where('donation_id',  $donation_id)->latest()->first();
+        $this->transaction_id = $transaction_latest_donation->id;
         $this->amount = $donation->amount;
         $this->site_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
         $this->email = Auth::user()->email;
@@ -103,7 +106,7 @@ class PaypalGateway extends Component
         $this->paymentSent = "false";
 
         try {
-            $transaction = Transaction::findOrFail($this->transacytion_id);
+            $transaction = Transaction::findOrFail($this->transaction_id);
 
             if ($transaction->gateway_donation_id) {
                 $paypalTransaction = $this->getPayPalOrder($transaction->gateway_donation_id);

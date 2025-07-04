@@ -31,6 +31,8 @@ class StripeGateway extends Component
     {
         $this->donation_id = $donation_id;
         $donation = Donation::findOrFail($donation_id);
+        $transaction_latest_donation = Transaction::where('donation_id',  $donation_id)->latest()->first();
+        $this->transaction_id = $transaction_latest_donation->id;
         $this->amount = $donation->amount;
         $this->site_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
         $this->email = Auth::user()->email;
