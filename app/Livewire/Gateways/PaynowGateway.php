@@ -116,8 +116,10 @@ class PaynowGateway extends Component
                 $transaction->update(['status' => "paid"]);
                 $donation->update(['status' => 'paid']);
                 $this->paymentSent = "false";
+                $donation = \App\Models\Donation::findOrFail($transaction->donation_id);
+                $donation->update(['status' => 'completed']);
 
-                return redirect()->to("/Transaction")->with('message', 'Your payment was successdull!!');
+                return redirect()->to("/transaction/". $transaction->id)->with('message', 'Your payment was successdull!!');
             } else {
                 $this->submittingCheck = "false";
                 $this->submitting = "false";

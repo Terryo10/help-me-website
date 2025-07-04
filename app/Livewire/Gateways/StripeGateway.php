@@ -88,6 +88,8 @@ class StripeGateway extends Component
                             'gateway_response' => $confirmResult,
                             'processed_at' => now()
                         ]);
+                        $donation = \App\Models\Donation::findOrFail($new_trans->donation_id);
+                        $donation->update(['status' => 'completed']);
 
                         $this->submitting = "false";
                         return redirect()->to("/transaction/" . $new_trans->id)->with('message', 'Payment completed successfully!');
@@ -131,6 +133,8 @@ class StripeGateway extends Component
                             'gateway_response' => $paymentIntent,
                             'processed_at' => now()
                         ]);
+                        $donation = \App\Models\Donation::findOrFail($transaction->donation_id);
+                        $donation->update(['status' => 'completed']);
 
                         $this->submittingCheck = "false";
                         $this->submitting = "false";

@@ -116,6 +116,9 @@ class PaypalGateway extends Component
                             'processed_at' => now()
                         ]);
 
+                        $donation = \App\Models\Donation::findOrFail($transaction->donation_id);
+                        $donation->update(['status' => 'completed']);
+
                         $this->submittingCheck = "false";
                         $this->submitting = "false";
                         $this->paymentSent = "false";
