@@ -27,7 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // PayPal callback routes
     Route::get('/paypal-success/{transactionId}', function ($transactionId) {
-        $transaction = Transaction::findOrFail($transactionId);
+        $transaction = \App\Models\Transaction::findOrFail($transactionId);
         $transaction->update(['status' => 'completed']);
         return redirect()->route('transaction.show', $transactionId)->with('message', 'Payment completed successfully!');
     })->name('paypal.success');

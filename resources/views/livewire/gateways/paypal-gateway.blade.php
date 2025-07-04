@@ -9,14 +9,14 @@
                         <p class="sign-up__sub-title text-center mb_40">Complete your payment securely with PayPal</p>
 
                         @if (session()->has('message'))
-                            <div class="alert alert-success mb-3" style="text-decoration: none !mportant;" role="alert">
+                            <p class="alert alert-success mb-3" style="text-decoration: none !mportant;" role="alert">
                                 {{ session('message') }}
-                            </div>
+                            </p>
                         @endif
                         @if (session()->has('error'))
-                            <div class="alert alert-danger mb-3" role="alert">
+                            <p class="alert alert-danger mb-3" role="alert">
                                 {{ session('error') }}
-                            </div>
+                            </p>
                         @endif
 
                         <div class="sign-up__form-part mb-4">
@@ -40,7 +40,7 @@
                                         class="form-control @error('email') is-invalid @enderror"
                                         placeholder="Enter your email address" required />
                                     @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <p class="invalid-feedback">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>
@@ -54,10 +54,10 @@
 
                         @if ($paymentSent === 'true')
                         <div class="text-center">
-                            <div class="alert alert-info mb-4">
+                            <p class="alert alert-info mb-4">
                                 <strong>Payment Ready!</strong><br>
                                 Click the button below to complete your payment on PayPal
-                            </div>
+                            </p>
                             <button wire:click="redirectToPayPal" class="btn_theme btn_theme_active w-100 mb-3">
                                 Continue to PayPal
                             </button>
