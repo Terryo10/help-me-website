@@ -5,6 +5,7 @@ use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\HomePage;
+use App\Models\Transaction;
 
 Route::get('/', \App\Livewire\HomePage::class)->name('home');
 Route::get('/payment/ecocash/{donation_id}', \App\Livewire\Gateways\PaynowGateway::class)->name('transaction.ecocash');
@@ -26,6 +27,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // PayPal callback routes
     Route::get('/paypal-success/{transactionId}', function ($transactionId) {
+        $transaction = Transaction::findOrFail($transactionId);
+        $transaction->update(['status' => 'completed']);
         return redirect()->route('transaction.show', $transactionId)->with('message', 'Payment completed successfully!');
     })->name('paypal.success');
 
@@ -57,4 +60,4 @@ Route::middleware(['auth'])->group(function () {
 Route::post('/paypal/webhook', [App\Http\Controllers\PayPalWebhookController::class, 'handle'])->name('paypal.webhook');
 Route::post('/stripe/webhook', [App\Http\Controllers\StripeWebhookController::class, 'handle'])->name('stripe.webhook');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
