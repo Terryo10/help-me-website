@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Http;
 class StripeGateway extends Component
 {
     public $donation_id;
+    public $transaction_id;
     public $amount;
     public $site_url;
     public $email;
@@ -41,8 +42,8 @@ class StripeGateway extends Component
         $this->validate([
             'email' => 'required|email',
             'cardNumber' => 'required|string|min:13|max:19',
-            'expiryMonth' => 'required|digits:2|min:1|max:12',
-            'expiryYear' => 'required|digits:4|min:' . date('Y'),
+            'expiryMonth' => 'required',
+            'expiryYear' => 'required',
             'cvc' => 'required|digits_between:3,4',
             'cardholderName' => 'required|string|max:255',
         ]);

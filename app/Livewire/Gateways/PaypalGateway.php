@@ -242,6 +242,7 @@ class PaypalGateway extends Component
         $clientId = env('PAYPAL_CLIENT_ID');
         $clientSecret = env('PAYPAL_CLIENT_SECRET');
 
+
         if (!$clientId || !$clientSecret) {
             return null;
         }
