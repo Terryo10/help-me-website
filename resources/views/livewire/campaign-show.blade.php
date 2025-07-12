@@ -98,23 +98,23 @@
                     <div class="donation-card wow fadeInRight">
                         <div class="progress-stats">
                             <div class="raised-amount">
-                                <h2>${{ number_format($campaign->raised_amount) }}</h2>
+                                <h2>${{ number_format($campaign->raised_amount_count()) }}</h2>
                                 <p>raised of ${{ number_format($campaign->goal_amount) }} goal</p>
                             </div>
                             <div class="progress-percentage">
-                                {{ number_format($campaign->progress_percentage, 1) }}%
+                                {{ number_format($campaign->goal_percentage(), 1) }}%
                             </div>
                         </div>
 
                         <div class="progress-bar-container">
                             <div class="progress">
-                                <div class="progress-bar" style="width: {{ min($campaign->progress_percentage, 100) }}%"></div>
+                                <div class="progress-bar" style="width: {{ min($campaign->goal_percentage(), 100) }}%"></div>
                             </div>
                         </div>
 
                         <div class="campaign-stats">
                             <div class="stat">
-                                <strong>{{ $campaign->donation_count }}</strong>
+                                <strong>{{ $donationCount }}</strong>
                                 <span>donors</span>
                             </div>
                             <div class="stat">
@@ -123,7 +123,7 @@
                             </div>
                             @if($campaign->end_date)
                             <div class="stat">
-                                <strong>{{ $campaign->end_date->diffInDays(now()) }}</strong>
+                                <strong>{{ number_format($campaign->end_date->diffInDays(now()), 0) }}</strong>
                                 <span>days left</span>
                             </div>
                             @endif
@@ -262,10 +262,10 @@
                                     <h5><a href="{{ route('campaigns.show', $related->slug) }}">{{ Str::limit($related->title, 50) }}</a></h5>
                                     <div class="progress-info">
                                         <span>${{ number_format($related->raised_amount) }} raised</span>
-                                        <span>{{ $related->progress_percentage }}%</span>
+                                        <span>{{ $related->goal_percentage() }}%</span>
                                     </div>
                                     <div class="progress">
-                                        <div class="progress-bar" style="width: {{ $related->progress_percentage }}%"></div>
+                                        <div class="progress-bar" style="width: {{ $related->goal_percentage() }}%"></div>
                                     </div>
                                 </div>
                             </div>

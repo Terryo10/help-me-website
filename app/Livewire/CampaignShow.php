@@ -75,7 +75,7 @@ class CampaignShow extends Component
     {
         $recentDonations = $this->campaign->donations()
             ->where('status', 'completed')
-            ->where('show_comment_publicly', true)
+            // ->where('show_comment_publicly', true)
             ->with('user')
             ->latest()
             ->take(10)
@@ -89,9 +89,12 @@ class CampaignShow extends Component
             ->take(3)
             ->get();
 
+        $donationCount = Donation::where('campaign_id', $this->campaign->id)->count();
+
         return view('livewire.campaign-show', [
             'recentDonations' => $recentDonations,
-            'relatedCampaigns' => $relatedCampaigns
+            'relatedCampaigns' => $relatedCampaigns,
+            'donationCount' => $donationCount
         ])->extends('app');
     }
 }

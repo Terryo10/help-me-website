@@ -73,6 +73,16 @@ class Campaign extends Model
         return $this->hasMany(Donation::class);
     }
 
+    public function raised_amount_count()
+    {
+        return $this->donations()->where('status', 'completed')->sum('amount');
+    }
+
+    public function goal_percentage()
+    {
+        return $this->raised_amount_count() / $this->goal_amount * 100;
+    }
+
     public function updates(): HasMany
     {
         return $this->hasMany(CampaignUpdate::class);
@@ -179,7 +189,7 @@ class Campaign extends Model
     {
         $completedDonations = $this->donations()->where('status', 'completed');
         $count = $completedDonations->count();
-        
+
         if ($count === 0) {
             return 0;
         }
@@ -311,7 +321,7 @@ class Campaign extends Model
     public function addDonation(float $amount): void
     {
         $this->increment('raised_amount', $amount);
-        
+
         // Auto-complete campaign if goal is reached
         if ($this->raised_amount >= $this->goal_amount && $this->status === 'active') {
             $this->update(['status' => 'completed']);
@@ -321,7 +331,7 @@ class Campaign extends Model
     public function removeDonation(float $amount): void
     {
         $this->decrement('raised_amount', $amount);
-        
+
         // Reactivate campaign if it was completed and now below goal
         if ($this->raised_amount < $this->goal_amount && $this->status === 'completed') {
             $this->update(['status' => 'active']);
@@ -340,22 +350,22 @@ class Campaign extends Model
     public function reject(string $reason = null): void
     {
         $updateData = ['status' => 'rejected'];
-        
+
         if ($reason) {
             $updateData['admin_notes'] = $reason;
         }
-        
+
         $this->update($updateData);
     }
 
     public function suspend(string $reason = null): void
     {
         $updateData = ['status' => 'suspended'];
-        
+
         if ($reason) {
             $updateData['admin_notes'] = $reason;
         }
-        
+
         $this->update($updateData);
     }
 
@@ -425,7 +435,7 @@ class Campaign extends Model
             if ($campaign->featured_image) {
                 Storage::disk('public')->delete($campaign->featured_image);
             }
-            
+
             if ($campaign->gallery && is_array($campaign->gallery)) {
                 foreach ($campaign->gallery as $imagePath) {
                     Storage::disk('public')->delete($imagePath);
