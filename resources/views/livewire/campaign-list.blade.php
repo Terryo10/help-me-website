@@ -107,21 +107,21 @@
                             <div class="campaign-progress">
                                 <div class="progress-info">
                                     <div class="raised">
-                                        <strong>${{ number_format($campaign->raised_amount) }}</strong>
+                                        <strong>${{ number_format($campaign->raised_amount_count()) }}</strong>
                                         <span>raised of ${{ number_format($campaign->goal_amount) }}</span>
                                     </div>
                                     <div class="percentage">
-                                        {{ number_format($campaign->progress_percentage, 1) }}%
+                                        {{ number_format($campaign->goal_percentage(), 1) }}%
                                     </div>
                                 </div>
                                 <div class="progress">
-                                    <div class="progress-bar" style="width: {{ min($campaign->progress_percentage, 100) }}%"></div>
+                                    <div class="progress-bar" style="width: {{ min($campaign->goal_percentage(), 100) }}%"></div>
                                 </div>
                                 <div class="progress-stats">
-                                    <span class="donors">{{ $campaign->donation_count }} donors</span>
+                                    <span class="donors">{{ $campaign->donations()->count() }} donors</span>
                                     @if($campaign->end_date)
                                     <span class="days-left">
-                                        {{ $campaign->end_date->diffInDays(now()) }} days left
+                                        {{ number_format($campaign->end_date->diffInDays(now()), 0) }} days left
                                     </span>
                                     @endif
                                 </div>
