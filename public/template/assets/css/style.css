@@ -1651,7 +1651,7 @@ a.conditions_apply::after {
   background: #074C3E;
   z-index: -3;
 }
-.btn_theme_active span {
+.btn_theme_active {
   background-color: #fff;
 }
 .btn_theme_active:hover, .btn_theme_active:focus {
