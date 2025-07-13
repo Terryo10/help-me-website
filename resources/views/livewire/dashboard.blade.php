@@ -105,11 +105,11 @@
                                             {{ ucfirst($campaign->status) }}
                                         </span>
                                         <span class="progress-text">
-                                            ${{ number_format($campaign->raised_amount) }} / ${{ number_format($campaign->goal_amount) }}
+                                            ${{ number_format($campaign->raised_amount_count()) }} / ${{ number_format($campaign->goal_amount) }}
                                         </span>
                                     </div>
                                     <div class="progress mb-2">
-                                        <div class="progress-bar" style="width: {{ 20 }}%"></div>
+                                        <div class="progress-bar" style="width: {{ min($campaign->goal_percentage(), 100) }}%"></div>
                                     </div>
                                 </div>
                             </div>
