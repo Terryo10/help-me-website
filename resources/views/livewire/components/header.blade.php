@@ -66,7 +66,7 @@
                                             </div>
                                         @else
                                             <a   href="{{ route('login') }}" class="btn_theme btn_theme_active">Sign In <i class="bi bi-arrow-up-right"></i><span></span></a>
-                                            <a   href="#" class="btn_theme">Start Campaign <i class="bi bi-arrow-up-right"></i><span></span></a>
+                                            <a   href="/dashboard" class="btn_theme">Start Campaign <i class="bi bi-arrow-up-right"></i><span></span></a>
                                         @endauth
                                     </div>
                                     <div class="nav-right__search-inner">
@@ -132,7 +132,7 @@
                                     <a   class="menu_link" href="{{ route('login') }}">Sign In</a>
                                 </li>
                                 <li class="menu_item">
-                                    <a class="menu_link" href="#">Start Campaign</a>
+                                    <a class="menu_link" href="/dashboard">Start Campaign</a>
                                 </li>
                             @endauth
                         </ul>
