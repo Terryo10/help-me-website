@@ -61,12 +61,10 @@
                     <div class="quick-link ms-sm-4 ms-xl-0 wow fadeInRight" data-wow-duration="0.8s">
                         <h4 class="footer__title mb-4">Quick Links</h4>
                         <ul>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Browse Campaigns</a></li>
-                            <li><a href="#">How It Works</a></li>
-                            <li><a href="#">Success Stories</a></li>
-                            <li><a href="#">FAQs</a></li>
-                            <li><a href="#">Trust & Safety</a></li>
+                            <li><a href="/about-us">About Us</a></li>
+                            <li><a href="/campaigns">Browse Campaigns</a></li>
+                            <li><a href="/faq">FAQs</a></li>
+                            <li><a href="/contact-us">Contact Us</a></li>
                         </ul>
                     </div>
                 </div>
