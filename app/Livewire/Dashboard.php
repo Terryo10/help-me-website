@@ -9,6 +9,50 @@ use Illuminate\Support\Facades\Auth;
 
 class Dashboard extends Component
 {
+    public $withdrawalAmount;
+    public $phoneNumber;
+    public $bankName;
+    public $accountNumber;
+    public $branchCode;
+
+    public function getBalance()
+    {
+        $user = Auth::user();
+        $totalRaised = Campaign::where('user_id', $user->id)->get()->sum(function($campaign) {
+            return $campaign->raised_amount_count();
+        });
+        return $totalRaised;
+    }
+
+    public function requestWithdrawal()
+    {
+        $this->validate([
+            'withdrawalAmount' => 'required|numeric|min:0.01|max:' . $this->getBalance(),
+            'phoneNumber' => 'required|string',
+            'bankName' => 'required|string',
+            'accountNumber' => 'required|string',
+            'branchCode' => 'required|string',
+        ]);
+
+        // Create withdrawal record
+        $withdrawal = new \App\Models\Withdrawal();
+        $withdrawal->user_id = Auth::id();
+        $withdrawal->amount = $this->withdrawalAmount;
+        $withdrawal->phone_number = $this->phoneNumber;
+        $withdrawal->bank_name = $this->bankName;
+        $withdrawal->account_number = $this->accountNumber;
+        $withdrawal->branch_code = $this->branchCode;
+        $withdrawal->status = 'pending';
+        $withdrawal->save();
+
+        // Optionally, send notification to admin
+
+        // Reset form fields
+        $this->reset(['withdrawalAmount', 'phoneNumber', 'bankName', 'accountNumber', 'branchCode']);
+
+        session()->flash('message', 'Withdrawal request submitted successfully!');
+    }
+
     public function render()
     {
         $user = Auth::user();
@@ -34,12 +78,16 @@ class Dashboard extends Component
             ->take(5)
             ->get();
 
+        // Get user withdrawals
+        $withdrawals = \App\Models\Withdrawal::where('user_id', $user->id)->latest()->get();
+
         return view('livewire.dashboard', [
             'totalRaised' => $totalRaised,
             'activeCampaigns' => $activeCampaigns,
             'totalDonations' => $totalDonations,
             'recentCampaigns' => $recentCampaigns,
-            'recentDonations' => $recentDonations
+            'recentDonations' => $recentDonations,
+            'withdrawals' => $withdrawals,
         ])->extends('app');
     }
 }

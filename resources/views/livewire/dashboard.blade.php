@@ -1,6 +1,4 @@
 <div>
-
-    @section('content')
     <livewire:header />
 
     <section class="dashboard-section section">
@@ -70,21 +68,113 @@
                     <div class="quick-actions wow fadeInUp">
                         <h4 class="mb-4">Quick Actions</h4>
                         <div class="btn-group gap-3">
-                            <a   href="{{ route('campaigns.create') }}" class="btn_theme btn_theme_active">
+                            <a href="{{ route('campaigns.create') }}" class="btn_theme btn_theme_active">
                                 <i class="bi bi-plus-circle"></i> Create Campaign
                             </a>
-                            <a   href="{{ route('campaigns.index') }}" class="btn_theme">
+                            <a href="{{ route('campaigns.index') }}" class="btn_theme">
                                 <i class="bi bi-list-ul"></i> View All Campaigns
                             </a>
                             <a href="#" class="btn_theme">
                                 <i class="bi bi-gear"></i> Settings
                             </a>
+                            <button type="button" class="btn_theme" data-bs-toggle="modal"
+                                data-bs-target="#withdrawalModal">
+                                <i class="bi bi-cash-coin"></i> Withdraw
+                            </button>
+                            <button type="button" class="btn_theme" data-bs-toggle="modal"
+                                data-bs-target="#withdrawalsModal">
+                                <i class="bi bi-history"></i> Withdrawals
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Recent Activity -->
+            <!-- Withdrawal Modal -->
+            <div class="modal fade" id="withdrawalModal" tabindex="-1" aria-labelledby="withdrawalModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="withdrawalModalLabel">Withdraw Funds</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form wire:submit.prevent="requestWithdrawal">
+                                <div class="mb-3">
+                                    <label for="withdrawalAmount" class="form-label">Amount</label>
+                                    <input type="number" class="form-control" id="withdrawalAmount"
+                                        wire:model="withdrawalAmount" max="{{ $this->getBalance() }}" required>
+                                    @error('withdrawalAmount') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                                    <input type="text" class="form-control" id="phoneNumber" wire:model="phoneNumber"
+                                        required>
+                                    @error('phoneNumber') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="bankName" class="form-label">Bank Name</label>
+                                    <input type="text" class="form-control" id="bankName" wire:model="bankName"
+                                        required>
+                                    @error('bankName') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="accountNumber" class="form-label">Account Number</label>
+                                    <input type="text" class="form-control" id="accountNumber"
+                                        wire:model="accountNumber" required>
+                                    @error('accountNumber') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="branchCode" class="form-label">Branch Code</label>
+                                    <input type="text" class="form-control" id="branchCode" wire:model="branchCode"
+                                        required>
+                                    @error('branchCode') <span class="text-danger">{{ $message }}</span> @enderror
+                                </div>
+                                <button type="submit" class="btn_theme btn_theme_active">Request Withdrawal</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Withdrawals Modal -->
+            <div class="modal fade" id="withdrawalsModal" tabindex="-1" aria-labelledby="withdrawalsModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="withdrawalsModalLabel">Your Withdrawals</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            @if ($withdrawals->isEmpty())
+                            <p>No withdrawals yet.</p>
+                            @else
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Requested At</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($withdrawals as $withdrawal)
+                                    <tr>
+                                        <td>${{ number_format($withdrawal->amount, 2) }}</td>
+                                        <td>{{ ucfirst($withdrawal->status) }}</td>
+                                        <td>{{ $withdrawal->created_at->diffForHumans() }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-lg-8">
                     <div class="dashboard-card wow fadeInLeft">
@@ -96,20 +186,25 @@
                             @forelse($recentCampaigns as $campaign)
                             <div class="campaign-item">
                                 <div class="campaign-image">
-                                    <img src="{{ $campaign->featured_image ?? asset('template/assets/images/placeholder.png') }}" alt="{{ $campaign->title }}">
+                                    <img src="{{ $campaign->featured_image ?? asset('template/assets/images/placeholder.png') }}"
+                                        alt="{{ $campaign->title }}">
                                 </div>
                                 <div class="campaign-content">
-                                    <h5><a href="{{ route('campaigns.show', $campaign->slug) }}">{{ $campaign->title }}</a></h5>
+                                    <h5><a href="{{ route('campaigns.show', $campaign->slug) }}">{{ $campaign->title
+                                            }}</a></h5>
                                     <div class="campaign-meta">
-                                        <span class="badge badge-{{ $campaign->status === 'active' ? 'success' : 'secondary' }}">
+                                        <span
+                                            class="badge badge-{{ $campaign->status === 'active' ? 'success' : 'secondary' }}">
                                             {{ ucfirst($campaign->status) }}
                                         </span>
                                         <span class="progress-text">
-                                            ${{ number_format($campaign->raised_amount_count()) }} / ${{ number_format($campaign->goal_amount) }}
+                                            ${{ number_format($campaign->raised_amount_count()) }} / ${{
+                                            number_format($campaign->goal_amount) }}
                                         </span>
                                     </div>
                                     <div class="progress mb-2">
-                                        <div class="progress-bar" style="width: {{ min($campaign->goal_percentage(), 100) }}%"></div>
+                                        <div class="progress-bar"
+                                            style="width: {{ min($campaign->goal_percentage(), 100) }}%"></div>
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +213,8 @@
                                 <i class="bi bi-megaphone"></i>
                                 <h5>No campaigns yet</h5>
                                 <p>Start your first campaign to help your community</p>
-                                <a   href="{{ route('campaigns.create') }}" class="btn_theme btn_theme_active">Create Campaign</a>
+                                <a href="{{ route('campaigns.create') }}" class="btn_theme btn_theme_active">Create
+                                    Campaign</a>
                             </div>
                             @endforelse
                         </div>
@@ -151,11 +247,14 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <livewire:footer />
 
-    <style>
+
+</div>
+</section>
+<livewire:footer />
+
+
+<style>
     .dashboard-header {
         text-align: center;
         margin-bottom: 2rem;
@@ -165,7 +264,7 @@
         /* background: rgb(32, 27, 27); */
         padding: 2rem;
         border-radius: 15px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         display: flex;
         align-items: center;
         gap: 1rem;
@@ -204,7 +303,7 @@
     .dashboard-card {
         background: white;
         border-radius: 15px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         margin-bottom: 2rem;
     }
 
@@ -338,8 +437,7 @@
         background: white;
         padding: 2rem;
         border-radius: 15px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     }
-    </style>
-    @endsection
-    </div>
+</style>
+</div>

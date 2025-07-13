@@ -1622,7 +1622,7 @@ a.conditions_apply::after {
 }
 .btn_theme:hover, .btn_theme:focus {
   border: 1px solid #074C3E;
-  color: #fff !important;
+  color: #8dcec0 !important;
 }
 .btn_theme:hover svg path, .btn_theme:focus svg path {
   fill: #fff;
