@@ -55,6 +55,8 @@ class Dashboard extends Component
         $this->reset(['withdrawalAmount', 'phoneNumber', 'bankName', 'accountNumber', 'branchCode']);
 
         session()->flash('message', 'Withdrawal request submitted successfully!');
+        //notify user via email with days for waiting period
+        return redirect()->to('/dashboard')->with('message', 'Withdrawal request submitted successfully!');
     }
 
     public function render()
