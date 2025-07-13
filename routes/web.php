@@ -10,6 +10,21 @@ use Illuminate\Http\Request;
 
 Route::get('/', \App\Livewire\HomePage::class)->name('home');
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', \App\Livewire\Dashboard::class)->name('dashboard');
+
+    // Campaign routes
+    Route::get('/campaigns/create', \App\Livewire\CreateCampaign::class)->name('campaigns.create');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::redirect('settings', 'settings/profile');
+
+    Route::get('settings/profile', Profile::class)->name('settings.profile');
+    Route::get('settings/password', Password::class)->name('settings.password');
+    Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
+});
+
 Route::get('/about-us', \App\Livewire\AboutUs::class)->name('about-us');
 Route::get('/contact-us', \App\Livewire\ContactUs::class)->name('contact-us');
 Route::get('/faq', \App\Livewire\Faq::class)->name('faqs');
@@ -52,23 +67,6 @@ Route::get('/transaction/{transactionId}', function ($transactionId) {
 })->name('transaction.show');
 Route::get('/campaigns/{campaign:slug}', \App\Livewire\CampaignShow::class)->name('campaigns.show');
 Route::get('/search/{query}', \App\Livewire\CampaignSearch::class)->name('campaigns.search');
-
-
-
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', \App\Livewire\Dashboard::class)->name('dashboard');
-
-    // Campaign routes
-    Route::get('/campaigns/create', \App\Livewire\CreateCampaign::class)->name('campaigns.create');
-});
-
-Route::middleware(['auth'])->group(function () {
-    Route::redirect('settings', 'settings/profile');
-
-    Route::get('settings/profile', Profile::class)->name('settings.profile');
-    Route::get('settings/password', Password::class)->name('settings.password');
-    Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
-});
 
 // Webhook routes (public routes - no authentication required)
 Route::post('/paypal/webhook', [App\Http\Controllers\PayPalWebhookController::class, 'handle'])->name('paypal.webhook');

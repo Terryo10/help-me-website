@@ -8,7 +8,6 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Storage;
 
 class CreateCampaign extends Component
 {
@@ -64,8 +63,8 @@ class CreateCampaign extends Component
             'minimum_donation' => 'required|numeric|min:1',
             'end_date' => 'nullable|date|after:today',
             'location' => 'nullable|string|max:255',
-            'featured_image' => 'nullable|image|max:2048',
-            'gallery.*' => 'nullable|image|max:2048',
+            'featured_image' => 'required|image|max:2048',
+            'gallery.*' => 'required|image|max:2048',
             'beneficiary_name' => 'nullable|string|max:255',
             'beneficiary_relationship' => 'nullable|string|max:255',
             'beneficiary_age' => 'nullable|integer|min:1|max:120',
@@ -78,7 +77,7 @@ class CreateCampaign extends Component
 
         // Conditional rules based on current step
         if ($this->currentStep >= 4 && $this->status === 'pending') {
-            $rules['featured_image'] = 'nullable|image|max:2048';
+            $rules['featured_image'] = 'required|image|max:2048';
         }
 
         return $rules;
@@ -169,12 +168,12 @@ class CreateCampaign extends Component
 
             case 4: // Media Upload
                 $rules = [
-                    'featured_image' => 'nullable|image|max:2048',
+                    'featured_image' => 'required|image|max:2048',
                     'gallery.*' => 'nullable|image|max:2048',
                 ];
 
                 if ($this->status === 'pending') {
-                    $rules['featured_image'] = 'nullable|image|max:2048';
+                    $rules['featured_image'] = 'required|image|max:2048';
                 }
                 break;
 
