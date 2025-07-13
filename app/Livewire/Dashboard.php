@@ -21,7 +21,11 @@ class Dashboard extends Component
         $totalRaised = Campaign::where('user_id', $user->id)->get()->sum(function($campaign) {
             return $campaign->raised_amount_count();
         });
-        return $totalRaised;
+
+        $withdrawals = \App\Models\Withdrawal::where('user_id', $user->id)
+            ->where('status', 'approved')
+            ->sum('amount');
+        return ($totalRaised - $withdrawals) > 0 ? ($totalRaised - $withdrawals) : 0;
     }
 
     public function requestWithdrawal()
