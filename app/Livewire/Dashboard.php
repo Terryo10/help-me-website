@@ -12,19 +12,21 @@ class Dashboard extends Component
     public function render()
     {
         $user = Auth::user();
-        
+
         // Get user stats
         $userCampaigns = Campaign::where('user_id', $user->id)->get();
-        $totalRaised = $userCampaigns->sum('raised_amount');
+        $totalRaised = $userCampaigns->sum(function($campaign) {
+            return $campaign->raised_amount_count();
+        });
         $activeCampaigns = $userCampaigns->where('status', 'active')->count();
         $totalDonations = Donation::where('user_id', $user->id)->where('status', 'completed')->count();
-        
+
         // Recent campaigns
         $recentCampaigns = Campaign::where('user_id', $user->id)
             ->latest()
             ->take(3)
             ->get();
-            
+
         // Recent donations made by user
         $recentDonations = Donation::where('user_id', $user->id)
             ->with('campaign')
