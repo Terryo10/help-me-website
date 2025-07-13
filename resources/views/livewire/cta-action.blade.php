@@ -5,7 +5,7 @@
                     <span>Compassion in Action: Join Us Today</span>
                     <h3>children need your help
                         by donating today</h3>
-                    <a wire:navigate href="/causes-single" class="theme-btn">become voluteer</a>
+                    <a   href="/causes-single" class="theme-btn">become voluteer</a>
                 </div>
             </div>
             <div class="shape">

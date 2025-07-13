@@ -103,7 +103,7 @@
 
                         <p class="have_account mt_24">
                             Already have an account?
-                            <a href="{{ route('login') }}" class="signin" wire:navigate>Sign In</a>
+                            <a href="{{ route('login') }}" class="signin"  >Sign In</a>
                         </p>
 
                         <button type="submit"

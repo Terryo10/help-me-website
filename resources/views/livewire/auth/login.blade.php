@@ -64,7 +64,7 @@
                                     @if (Route::has('password.request'))
                                         <a href="{{ route('password.request') }}"
                                            class="signin"
-                                           wire:navigate>
+                                            >
                                             Forgot password?
                                         </a>
                                     @endif
@@ -74,7 +74,7 @@
 
                         <p class="have_account mt_24">
                             Don't have an account?
-                            <a href="{{ route('register') }}" class="signin" wire:navigate>Sign Up</a>
+                            <a href="{{ route('register') }}" class="signin"  >Sign Up</a>
                         </p>
 
                         <button type="submit"

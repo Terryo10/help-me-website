@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-12">
                     <nav class="navbar navbar-expand-xl nav-shadow" id="#navbar">
-                        <a wire:navigate class="navbar-brand" href="{{ route('home') }}">
+                        <a   class="navbar-brand" href="{{ route('home') }}">
                             <img src="{{ asset('template/assets/images/logo.png') }}" class="logo" alt="HelpMe.co.zw Logo" style="height: 60px;">
                         </a>
                         <a class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
@@ -15,32 +15,27 @@
                             <div class="main-menu index-page">
                                 <ul class="navbar-nav mb-lg-0 mx-auto">
                                     <li class="nav-item">
-                                        <a wire:navigate class="nav-link" href="{{ route('home') }}">Home</a>
+                                        <a   class="nav-link" href="{{ route('home') }}">Home</a>
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Campaigns</a>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Browse Campaigns</a></li>
-                                            <li><a class="dropdown-item" href="#">Medical Campaigns</a></li>
-                                            <li><a class="dropdown-item" href="#">Education Campaigns</a></li>
-                                            <li><a class="dropdown-item" href="#">Emergency Campaigns</a></li>
-                                            <li><a class="dropdown-item" href="#">Community Projects</a></li>
+                                            <li><a class="dropdown-item" href="/campaigns">Browse Campaigns</a></li>
+                                            <li><a class="dropdown-item" href="/campaigns?category=medical">Medical Campaigns</a></li>
+                                            <li><a class="dropdown-item" href="/campaigns?category=education">Education Campaigns</a></li>
+                                            <li><a class="dropdown-item" href="/campaigns?category=emergency">Emergency Campaigns</a></li>
                                         </ul>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">How It Works</a>
-                                    </li>
+
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">About</a>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">About Us</a></li>
-                                            <li><a class="dropdown-item" href="#">Success Stories</a></li>
-                                            <li><a class="dropdown-item" href="#">FAQs</a></li>
-                                            <li><a class="dropdown-item" href="#">Trust & Safety</a></li>
+                                            <li><a class="dropdown-item" href="/about-us">About Us</a></li>
+                                            <li><a class="dropdown-item" href="/faq">FAQs</a></li>
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Contact</a>
+                                        <a class="nav-link" href="/contact-us">Contact</a>
                                     </li>
                                 </ul>
                                 <div class="nav-right d-none d-xl-block">
@@ -70,8 +65,8 @@
                                                 </ul>
                                             </div>
                                         @else
-                                            <a wire:navigate href="{{ route('login') }}" class="btn_theme btn_theme_active">Sign In <i class="bi bi-arrow-up-right"></i><span></span></a>
-                                            <a wire:navigate href="#" class="btn_theme">Start Campaign <i class="bi bi-arrow-up-right"></i><span></span></a>
+                                            <a   href="{{ route('login') }}" class="btn_theme btn_theme_active">Sign In <i class="bi bi-arrow-up-right"></i><span></span></a>
+                                            <a   href="#" class="btn_theme">Start Campaign <i class="bi bi-arrow-up-right"></i><span></span></a>
                                         @endauth
                                     </div>
                                     <div class="nav-right__search-inner">
@@ -117,9 +112,6 @@
                                 </ul>
                             </li>
                             <li class="menu_item">
-                                <a class="menu_link" href="#">How It Works</a>
-                            </li>
-                            <li class="menu_item">
                                 <a class="menu_link" href="#">About Us</a>
                             </li>
                             <li class="menu_item">
@@ -127,7 +119,7 @@
                             </li>
                             @auth
                                 <li class="menu_item">
-                                    <a wire:navigate class="menu_link" href="{{ route('dashboard') }}">Dashboard</a>
+                                    <a   class="menu_link" href="{{ route('dashboard') }}">Dashboard</a>
                                 </li>
                                 <li class="menu_item">
                                     <form method="POST" action="{{ route('logout') }}">
@@ -137,7 +129,7 @@
                                 </li>
                             @else
                                 <li class="menu_item">
-                                    <a wire:navigate class="menu_link" href="{{ route('login') }}">Sign In</a>
+                                    <a   class="menu_link" href="{{ route('login') }}">Sign In</a>
                                 </li>
                                 <li class="menu_item">
                                     <a class="menu_link" href="#">Start Campaign</a>

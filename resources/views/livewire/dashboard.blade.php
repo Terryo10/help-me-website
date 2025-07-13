@@ -70,10 +70,10 @@
                     <div class="quick-actions wow fadeInUp">
                         <h4 class="mb-4">Quick Actions</h4>
                         <div class="btn-group gap-3">
-                            <a wire:navigate href="{{ route('campaigns.create') }}" class="btn_theme btn_theme_active">
+                            <a   href="{{ route('campaigns.create') }}" class="btn_theme btn_theme_active">
                                 <i class="bi bi-plus-circle"></i> Create Campaign
                             </a>
-                            <a wire:navigate href="{{ route('campaigns.index') }}" class="btn_theme">
+                            <a   href="{{ route('campaigns.index') }}" class="btn_theme">
                                 <i class="bi bi-list-ul"></i> View All Campaigns
                             </a>
                             <a href="#" class="btn_theme">
@@ -118,7 +118,7 @@
                                 <i class="bi bi-megaphone"></i>
                                 <h5>No campaigns yet</h5>
                                 <p>Start your first campaign to help your community</p>
-                                <a wire:navigate href="{{ route('campaigns.create') }}" class="btn_theme btn_theme_active">Create Campaign</a>
+                                <a   href="{{ route('campaigns.create') }}" class="btn_theme btn_theme_active">Create Campaign</a>
                             </div>
                             @endforelse
                         </div>
