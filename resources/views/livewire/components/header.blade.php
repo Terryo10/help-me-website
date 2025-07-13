@@ -71,9 +71,10 @@
                                     </div>
                                     <div class="nav-right__search-inner">
                                         <div class="nav-search-inner__form">
-                                            <form method="GET" id="search" class="inner__form">
+                                            <form method="POST" id="search" class="inner__form" action="/search">
+                                                @csrf
                                                 <div class="input-group">
-                                                    <input type="text" class="form-control" name="q" placeholder="Search campaigns..." required>
+                                                    <input type="text" class="form-control" name="search" placeholder="Search campaigns..." required>
                                                     <button type="submit" class="search_icon"><i class="bi bi-search"></i></button>
                                                 </div>
                                             </form>

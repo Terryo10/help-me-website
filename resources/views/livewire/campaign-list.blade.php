@@ -1,5 +1,5 @@
 <div>
-    @section('content')
+
     <livewire:header />
     <div class="section campaigns-section section-padding">
         <div class="container">
@@ -379,5 +379,4 @@
         }
     }
     </style>
-    @endsection
     </div>

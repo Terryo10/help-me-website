@@ -89,6 +89,7 @@ class Dashboard extends Component
 
         return view('livewire.dashboard', [
             'totalRaised' => $totalRaised,
+            'balance' => $this->getBalance(),
             'activeCampaigns' => $activeCampaigns,
             'totalDonations' => $totalDonations,
             'recentCampaigns' => $recentCampaigns,

@@ -6,8 +6,19 @@ use App\Livewire\Settings\Profile;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\HomePage;
 use App\Models\Transaction;
+use Illuminate\Http\Request;
 
 Route::get('/', \App\Livewire\HomePage::class)->name('home');
+
+Route::get('/about-us', \App\Livewire\AboutUs::class)->name('about-us');
+Route::get('/contact-us', \App\Livewire\ContactUs::class)->name('contact-us');
+Route::get('/faq', \App\Livewire\Faq::class)->name('faqs');
+
+Route::post('/search', function (Request $request) {
+    $query = $request->search ?? '';
+    return redirect()->to('/search/'.$query);
+})->name('search.redirect');
+
 Route::get('/payment/ecocash/{donation_id}', \App\Livewire\Gateways\PaynowGateway::class)->name('transaction.ecocash');
 Route::get('/payment/paypal/{donation_id}', \App\Livewire\Gateways\PaypalGateway::class)->name('transaction.paypal');
 Route::get('/payment/stripe/{donation_id}', \App\Livewire\Gateways\StripeGateway::class)->name('transaction.stripe');
@@ -40,6 +51,8 @@ Route::get('/transaction/{transactionId}', function ($transactionId) {
     return view('transaction.show', compact('transaction'));
 })->name('transaction.show');
 Route::get('/campaigns/{campaign:slug}', \App\Livewire\CampaignShow::class)->name('campaigns.show');
+Route::get('/search/{query}', \App\Livewire\CampaignSearch::class)->name('campaigns.search');
+
 
 
 Route::middleware(['auth', 'verified'])->group(function () {

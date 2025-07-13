@@ -28,6 +28,18 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
+                    <div class="stats-card wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="stats-icon">
+                            <i class="bi bi-currency-dollar"></i>
+                        </div>
+                        <div class="stats-content">
+                            <h3>${{ number_format($balance, 2) }}</h3>
+                            <p>Your Balance Left</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
                     <div class="stats-card wow fadeInUp" data-wow-delay="0.2s">
                         <div class="stats-icon">
                             <i class="bi bi-megaphone"></i>
