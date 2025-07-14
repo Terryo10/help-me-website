@@ -416,7 +416,7 @@
 
                                 <div class="d-flex gap-3">
                                     <!-- Save Draft Button (available on all steps) -->
-                                    <button type="button"
+                                    {{-- <button type="button"
                                             wire:click="saveDraft"
                                             class="btn btn-outline-primary"
                                             wire:loading.attr="disabled">
@@ -426,7 +426,7 @@
                                         <div wire:loading wire:target="saveDraft">
                                             Saving...
                                         </div>
-                                    </button>
+                                    </button> --}}
 
                                     @if($currentStep < $totalSteps)
                                     <button id="gene_piki" wire:click="nextStep" type="button"
