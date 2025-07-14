@@ -62,7 +62,7 @@
 
                         @if($campaign->gallery)
                             @php
-                                $galleryImages = array_filter(explode(',', $campaign->gallery));
+                                $galleryImages = is_array($campaign->gallery) ? array_filter($campaign->gallery) : array_filter(explode(',', $campaign->gallery));
                             @endphp
                             @if(count($galleryImages) > 0)
                                 <div class="campaign-gallery mt-3 mb-3">
