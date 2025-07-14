@@ -131,9 +131,6 @@
                                 <a href="{{ route('campaigns.show', $campaign->slug) }}" class="btn_theme btn_theme_active">
                                     Donate Now <i class="bi bi-arrow-right"></i>
                                 </a>
-                                <button class="btn_theme share-btn" title="Share">
-                                    <i class="bi bi-share"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
