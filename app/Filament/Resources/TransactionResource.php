@@ -76,7 +76,7 @@ class TransactionResource extends Resource
                             ->required()
                             ->default('pending'),
 
-                        Forms\Components\DateTimePicker::make('transaction_date')
+                        Forms\Components\DateTimePicker::make('created_at')
                             ->label('Transaction Date')
                             ->required(),
 
@@ -125,7 +125,7 @@ class TransactionResource extends Resource
                         'danger' => 'failed',
                     ]),
 
-                Tables\Columns\TextColumn::make('transaction_date')
+                Tables\Columns\TextColumn::make('created_at')
                     ->label('Transaction Date')
                     ->dateTime()
                     ->sortable(),
@@ -153,7 +153,7 @@ class TransactionResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
-            ->defaultSort('transaction_date', 'desc');
+            ->defaultSort('created_at', 'desc');
     }
 
     public static function infolist(Infolist $infolist): Infolist
@@ -181,7 +181,7 @@ class TransactionResource extends Resource
                                                 'completed' => 'success',
                                                 'failed' => 'danger',
                                             }),
-                                        Infolists\Components\TextEntry::make('transaction_date')
+                                        Infolists\Components\TextEntry::make('created_at')
                                             ->dateTime(),
                                         Infolists\Components\TextEntry::make('notes'),
                                     ]),
