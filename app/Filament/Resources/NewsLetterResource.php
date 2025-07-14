@@ -78,7 +78,7 @@ class NewsLetterResource extends Resource
                     ->weight(FontWeight::Bold)
                     ->limit(30),
 
-                Tables\Columns\TextColumn::make('sent_at')
+                Tables\Columns\TextColumn::make('created_at')
                     ->label('Sent At')
                     ->dateTime()
                     ->sortable(),
@@ -133,7 +133,7 @@ class NewsLetterResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
-            ->defaultSort('sent_at', 'desc');
+            ->defaultSort('created_at', 'desc');
     }
 
     public static function infolist(Infolist $infolist): Infolist
@@ -145,17 +145,17 @@ class NewsLetterResource extends Resource
                         Infolists\Components\Split::make([
                             Infolists\Components\Grid::make(2)
                                 ->schema([
-                                    Infolists\Components\Group::make([
-                                        Infolists\Components\TextEntry::make('subject')
-                                            ->weight(FontWeight::Bold)
-                                            ->size(Infolists\Components\TextEntry\TextEntrySize::Large),
-                                        Infolists\Components\TextEntry::make('content')
-                                            ->prose()
-                                            ->hiddenLabel()
-                                            ->html(),
-                                        Infolists\Components\TextEntry::make('sent_at')
-                                            ->dateTime(),
-                                    ]),
+                                    // Infolists\Components\Group::make([
+                                    //     Infolists\Components\TextEntry::make('subject')
+                                    //         ->weight(FontWeight::Bold)
+                                    //         ->size(Infolists\Components\TextEntry\TextEntrySize::Large),
+                                    //     Infolists\Components\TextEntry::make('email')
+                                    //         ->prose()
+                                    //         ->hiddenLabel()
+                                    //         ->html(),
+                                    //     Infolists\Components\TextEntry::make('sent_at')
+                                    //         ->dateTime(),
+                                    // ]),
                                 ]),
                         ])->from('lg'),
                     ]),
