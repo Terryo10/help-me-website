@@ -144,7 +144,7 @@
                             </div>
                             @if($campaign->end_date)
                             <div class="stat">
-                                <strong>{{ number_format($campaign->end_date->diffInDays(now()), 0) }}</strong>
+                                <strong>{{ max($campaign->end_date->diffInDays(now(), false), 0) }}</strong>
                                 <span>days left</span>
                             </div>
                             @endif
