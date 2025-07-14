@@ -24,6 +24,6 @@ class NewsLetterController extends Controller
             'ip_address' => $request->ip(),
         ]);
 
-        return redirect()->back()->with('message', 'Thank you for subscribing to our newsletter!');
+        return redirect()->back()->with('success', 'Thank you for subscribing to our newsletter!');
     }
 }
