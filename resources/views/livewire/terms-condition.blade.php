@@ -1,13 +1,19 @@
 <div>
     <livewire:header />
-    <section class="sign-up section">
+    <section class="section faq-section">
         <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-7 col-xxl-6">
+                    <div class="section__header">
+                        <span class="section__header-sub-title headingFour wow fadeInDown" data-wow-duration="0.8s"><img src="/template/assets/images/title_vector.png" alt="vector">Terms and Conditions</span>
+                        <h2 class="section__header-title wow fadeInUp" data-wow-duration="0.8s">Welcome to HelpMe.co.zw</h2>
+                        <p class="section__header-content wow fadeInDown" data-wow-duration="0.8s">By using our platform, you agree to the following terms and conditions:</p>
+                    </div>
+                </div>
+            </div>
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-md-8 col-lg-6">
-                    <div class="sign-up__form wow fadeInUp mt-5 mb-5" data-wow-duration="0.8s">
-                        <h3 class="sign-up__title text-center mb-2">Terms and Conditions</h3>
-                        <p class="sign-up__sub-title text-center mb_40">Welcome to HelpMe.co.zw! By using our platform, you agree to the following terms and conditions:</p>
-                        <!-- Terms and Conditions content goes here -->
+                    <div class="wow fadeInUp mt-5 mb-5" data-wow-duration="0.8s">
                         <h2>Acceptance of Terms</h2>
                         <p>By accessing or using our website, you agree to be bound by these terms and conditions. If you do not agree
                             with any part of these terms, you must not use our website.</p>

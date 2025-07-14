@@ -1,14 +1,20 @@
 <div>
     <livewire:header />
 
-    <section class="sign-up section">
+    <section class="section faq-section">
         <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-7 col-xxl-6">
+                    <div class="section__header">
+                        <span class="section__header-sub-title headingFour wow fadeInDown" data-wow-duration="0.8s"><img src="/template/assets/images/title_vector.png" alt="vector">Privacy Policy</span>
+                        <h2 class="section__header-title wow fadeInUp" data-wow-duration="0.8s">Your Privacy Matters</h2>
+                        <p class="section__header-content wow fadeInDown" data-wow-duration="0.8s">Your privacy is important to us. This policy outlines how we collect, use, and protect your information.</p>
+                    </div>
+                </div>
+            </div>
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-md-8 col-lg-6">
-                    <div class="sign-up__form wow fadeInUp mt-5 mb-5" data-wow-duration="0.8s">
-                        <h3 class="sign-up__title text-center mb-2">Privacy Policy</h3>
-                        <p class="sign-up__sub-title text-center mb_40">Your privacy is important to us. This policy outlines how we collect, use, and protect your information.</p>
-                        <!-- Privacy policy content goes here -->
+                    <div class="wow fadeInUp mt-5 mb-5" data-wow-duration="0.8s">
                         <h2>Information Collection</h2>
                         <p>We collect personal information when you register on our site, place an order, subscribe to our newsletter,
                             or fill out a form.</p>
