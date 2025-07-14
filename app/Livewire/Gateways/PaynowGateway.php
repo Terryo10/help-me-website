@@ -68,14 +68,14 @@ class PaynowGateway extends Component
                 $status = $this->paynow($new_trans->id, "paynow")->pollTransaction($pollUrl);
 
                 if ($status->status() === "sent") {
-                    session()->flash('message', 'Payment has been sent to your phone please confirm with pin!!');
+                    session()->flash('success', 'Payment has been sent to your phone please confirm with pin!!');
                     $this->paymentSent = "true";
                 }
 
                 if ($status->paid()) {
                     $this->submitting = "false";
 
-                    return redirect()->to("/Transaction")->with('message', 'Your payment was successdull!!');
+                    return redirect()->to("/Transaction")->with('success', 'Your payment was successdull!!');
                 } else {
                     // $this->submitting = "false";
                     // session()->flash('error', 'Why not pay!!');
@@ -106,7 +106,7 @@ class PaynowGateway extends Component
             $status = $this->paynow($this->donation_id, "paynow")->pollTransaction($pollUrl);
 
             if ($status->status() === "sent") {
-                session()->flash('message', 'Payment was unsuccessfull please try repaying again!!');
+                session()->flash('success', 'Payment was unsuccessfull please try repaying again!!');
                 $this->paymentSent = "true";
             }
 
@@ -119,7 +119,7 @@ class PaynowGateway extends Component
                 $donation = \App\Models\Donation::findOrFail($transaction->donation_id);
                 $donation->update(['status' => 'completed']);
 
-                return redirect()->to("/transaction/". $transaction->id)->with('message', 'Your payment was successdull!!');
+                return redirect()->to("/transaction/". $transaction->id)->with('success', 'Your payment was successdull!!');
             } else {
                 $this->submittingCheck = "false";
                 $this->submitting = "false";
