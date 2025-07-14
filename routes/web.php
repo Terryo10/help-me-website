@@ -28,6 +28,9 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/about-us', \App\Livewire\AboutUs::class)->name('about-us');
 Route::get('/contact-us', \App\Livewire\ContactUs::class)->name('contact-us');
 Route::get('/faq', \App\Livewire\Faq::class)->name('faqs');
+Route::get('/terms-condition', \App\Livewire\TermsCondition::class)->name('terms-condition');
+Route::get('/privacy-policy', \App\Livewire\PrivacyPolicy::class)->name('privacy-policy');
+Route::post('/news-letter', [\App\Http\Controllers\NewsLetterController::class, 'subscribe'])->name('news-letter');
 
 Route::post('/search', function (Request $request) {
     $query = $request->search ?? '';

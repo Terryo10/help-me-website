@@ -34,9 +34,7 @@
                                             <li><a class="dropdown-item" href="/faq">FAQs</a></li>
                                         </ul>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/contact-us">Contact</a>
-                                    </li>
+
                                 </ul>
                                 <div class="nav-right d-none d-xl-block">
                                     <div class="nav-right__search">
@@ -105,18 +103,14 @@
                             <li class="menu_item dropdown">
                                 <a class="menu_link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Campaigns</a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Browse Campaigns</a></li>
-                                    <li><a class="dropdown-item" href="#">Medical</a></li>
-                                    <li><a class="dropdown-item" href="#">Education</a></li>
-                                    <li><a class="dropdown-item" href="#">Emergency</a></li>
-                                    <li><a class="dropdown-item" href="#">Community</a></li>
+                                    <li><a class="dropdown-item" href="/campaigns">Browse Campaigns</a></li>
+                                            <li><a class="dropdown-item" href="/campaigns?category=medical">Medical Campaigns</a></li>
+                                            <li><a class="dropdown-item" href="/campaigns?category=education">Education Campaigns</a></li>
+                                            <li><a class="dropdown-item" href="/campaigns?category=emergency">Emergency Campaigns</a></li>
                                 </ul>
                             </li>
                             <li class="menu_item">
-                                <a class="menu_link" href="#">About Us</a>
-                            </li>
-                            <li class="menu_item">
-                                <a class="menu_link" href="#">Contact</a>
+                                <a class="menu_link" href="/about-us">About Us</a>
                             </li>
                             @auth
                                 <li class="menu_item">

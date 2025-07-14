@@ -44,7 +44,7 @@
                     <div class="newsletter wow fadeInDown" data-wow-duration="0.8s">
                         <h4 class="footer__title mb-4">Newsletter</h4>
                         <p class="mb_32">Subscribe to our newsletter to get updates on new campaigns and success stories</p>
-                        <form method="POST" autocomplete="off" id="frmSubscribe" class="newsletter__content-form">
+                        <form method="POST" autocomplete="off" class="newsletter__content-form" action="{{ route('news-letter') }}">
                             @csrf
                             <div class="input-group">
                                 <input type="email" class="form-control" id="sMail" name="email" placeholder="Email Address" required>
@@ -64,7 +64,6 @@
                             <li><a href="/about-us">About Us</a></li>
                             <li><a href="/campaigns">Browse Campaigns</a></li>
                             <li><a href="/faq">FAQs</a></li>
-                            <li><a href="/contact-us">Contact Us</a></li>
                         </ul>
                     </div>
                 </div>
@@ -78,9 +77,8 @@
                             All rights reserved.
                         </p>
                         <ul class="footer__copyright-conditions">
-                            <li><a href="#">Help & Support</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms & Conditions</a></li>
+                            <li><a href="/privacy-policy">Privacy Policy</a></li>
+                            <li><a href="/terms-condition">Terms & Conditions</a></li>
                         </ul>
                     </div>
                 </div>

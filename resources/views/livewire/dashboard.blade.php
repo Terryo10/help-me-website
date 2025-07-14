@@ -198,7 +198,7 @@
                             @forelse($recentCampaigns as $campaign)
                             <div class="campaign-item">
                                 <div class="campaign-image">
-                                    <img src="{{ $campaign->featured_image ?? asset('template/assets/images/placeholder.png') }}"
+                                    <img src="{{ $campaign->featured_image ? asset('storage/' . $campaign->featured_image) : asset('template/assets/images/placeholder.png') }}"
                                         alt="{{ $campaign->title }}">
                                 </div>
                                 <div class="campaign-content">
