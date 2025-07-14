@@ -144,16 +144,16 @@
                         <!-- Share Buttons -->
                         <div class="share-buttons mt-3">
                             <span class="share-label">Share:</span>
-                            <a href="#" class="share-btn facebook" title="Share on Facebook">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}" target="_blank" rel="noopener" class="share-btn facebook" title="Share on Facebook">
                                 <i class="bi bi-facebook"></i>
                             </a>
-                            <a href="#" class="share-btn twitter" title="Share on Twitter">
+                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->fullUrl()) }}&text={{ urlencode($campaign->title) }}" target="_blank" rel="noopener" class="share-btn twitter" title="Share on Twitter">
                                 <i class="bi bi-twitter"></i>
                             </a>
-                            <a href="#" class="share-btn whatsapp" title="Share on WhatsApp">
+                            <a href="https://wa.me/?text={{ urlencode($campaign->title . ' ' . request()->fullUrl()) }}" target="_blank" rel="noopener" class="share-btn whatsapp" title="Share on WhatsApp">
                                 <i class="bi bi-whatsapp"></i>
                             </a>
-                            <a href="#" class="share-btn copy" title="Copy Link">
+                            <a href="#" class="share-btn copy" title="Copy Link" onclick="navigator.clipboard.writeText(window.location.href); return false;">
                                 <i class="bi bi-link"></i>
                             </a>
                         </div>
