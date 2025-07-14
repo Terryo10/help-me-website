@@ -59,6 +59,27 @@
                     <img src="{{ $campaign->featured_image ? asset('storage/' . $campaign->featured_image) : asset('template/assets/images/placeholder.png') }}"
                          alt="{{ $campaign->title }}"
                          class="campaign-featured-image">
+
+                        @if($campaign->gallery)
+                            @php
+                                $galleryImages = array_filter(explode(',', $campaign->gallery));
+                            @endphp
+                            @if(count($galleryImages) > 0)
+                                <div class="campaign-gallery mt-3 mb-3">
+                                    <div class="row g-2">
+                                        @foreach($galleryImages as $image)
+                                            <div class="col-4 col-md-3">
+                                                <div class="gallery-thumb">
+                                                    <img src="{{ asset('storage/' . trim($image)) }}" alt="Gallery Image" class="img-fluid rounded" style="object-fit:cover; width:100%; height:90px;">
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+                        @endif
+
+
                 </div>
 
                 <!-- Campaign Story -->
