@@ -13,9 +13,9 @@
                             {{ session('error') }}
                         </p>
                         @endif
-                        @if (session()->has('message'))
+                        @if (session()->has('success'))
                         <p class="alert alert-success mb-3" role="alert">
-                            {{ session('message') }}
+                            {{ session('success') }}
                         </p>
                         @endif
                         <form wire:submit.prevent="createPayment">
