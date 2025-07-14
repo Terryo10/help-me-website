@@ -138,10 +138,10 @@
                                 <strong>{{ $donationCount }}</strong>
                                 <span>donors</span>
                             </div>
-                            <div class="stat">
+                            {{-- <div class="stat">
                                 <strong>{{ $campaign->share_count }}</strong>
                                 <span>shares</span>
-                            </div>
+                            </div> --}}
                             @if($campaign->end_date)
                             <div class="stat">
                                 <strong>{{ max($campaign->end_date->diffInDays(now(), false), 0) }}</strong>
