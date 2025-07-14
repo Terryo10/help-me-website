@@ -8,6 +8,6 @@ class TermsCondition extends Component
 {
     public function render()
     {
-        return view('livewire.terms-condition')->extents('app');
+        return view('livewire.terms-condition')->extends('app');
     }
 }
