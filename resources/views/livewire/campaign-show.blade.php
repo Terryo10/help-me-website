@@ -35,7 +35,7 @@
 
                     <div class="campaign-meta">
                         <div class="organizer">
-                            <img src="{{ asset('template/assets/images/avatar-placeholder.png') }}" alt="{{ $campaign->user->name }}" class="organizer-avatar">
+                            {{-- <img src="{{ asset('template/assets/images/avatar-placeholder.png') }}" alt="{{ $campaign->user->name }}" class="organizer-avatar"> --}}
                             <div>
                                 <span class="organizer-label">Organized by</span>
                                 <strong class="organizer-name">{{ $campaign->user->name }}</strong>
