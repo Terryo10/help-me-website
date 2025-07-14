@@ -85,6 +85,10 @@ class TransactionResource extends Resource
                             ->rows(3),
                     ])
                     ->columns(2),
+
+                Forms\Components\TextInput::make('reference')
+                    ->label('Reference')
+                    ->maxLength(255),
             ]);
     }
 
@@ -124,6 +128,11 @@ class TransactionResource extends Resource
                 Tables\Columns\TextColumn::make('transaction_date')
                     ->label('Transaction Date')
                     ->dateTime()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('reference')
+                    ->label('Reference')
+                    ->searchable()
                     ->sortable(),
             ])
             ->filters([

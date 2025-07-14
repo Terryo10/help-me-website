@@ -52,6 +52,29 @@ class NewsLetterResource extends Resource
                             ->label('Sent At'),
                     ])
                     ->columns(2),
+
+                Forms\Components\TextInput::make('email')
+                    ->label('Email')
+                    ->email()
+                    ->maxLength(255),
+
+                Forms\Components\Toggle::make('is_subscribed')
+                    ->label('Is Subscribed')
+                    ->default(true),
+
+                Forms\Components\DateTimePicker::make('subscribed_at')
+                    ->label('Subscribed At'),
+
+                Forms\Components\DateTimePicker::make('unsubscribed_at')
+                    ->label('Unsubscribed At'),
+
+                Forms\Components\TextInput::make('ip_address')
+                    ->label('IP Address')
+                    ->maxLength(45),
+
+                Forms\Components\Textarea::make('user_agent')
+                    ->label('User Agent')
+                    ->rows(2),
             ]);
     }
 
@@ -70,9 +93,39 @@ class NewsLetterResource extends Resource
                     ->label('Sent At')
                     ->dateTime()
                     ->sortable(),
+
+                Tables\Columns\TextColumn::make('email')
+                    ->label('Email')
+                    ->searchable()
+                    ->sortable(),
+
+                Tables\Columns\IconColumn::make('is_subscribed')
+                    ->label('Is Subscribed')
+                    ->boolean(),
+
+                Tables\Columns\TextColumn::make('subscribed_at')
+                    ->label('Subscribed At')
+                    ->dateTime()
+                    ->sortable(),
+
+                 Tables\Columns\TextColumn::make('unsubscribed_at')
+                    ->label('Unsubscribed At')
+                    ->dateTime()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('ip_address')
+                    ->label('IP Address')
+                    ->searchable()
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('user_agent')
+                    ->label('User Agent')
+                    ->searchable()
+                    ->sortable()
+                    ->limit(50),
             ])
             ->filters([
-                //
+
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
