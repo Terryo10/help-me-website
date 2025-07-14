@@ -36,23 +36,6 @@ class NewsLetterResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('NewsLetter Information')
-                    ->schema([
-                        Forms\Components\TextInput::make('subject')
-                            ->label('Subject')
-                            ->required()
-                            ->maxLength(255),
-
-                        Forms\Components\RichEditor::make('content')
-                            ->label('Content')
-                            ->required()
-                            ->columnSpanFull(),
-
-                        Forms\Components\DateTimePicker::make('sent_at')
-                            ->label('Sent At'),
-                    ])
-                    ->columns(2),
-
                 Forms\Components\TextInput::make('email')
                     ->label('Email')
                     ->email()
@@ -75,6 +58,12 @@ class NewsLetterResource extends Resource
                 Forms\Components\Textarea::make('user_agent')
                     ->label('User Agent')
                     ->rows(2),
+                Forms\Components\DateTimePicker::make('created_at')
+                    ->label('Created At')
+                    ->disabled(),
+                Forms\Components\DateTimePicker::make('updated_at')
+                    ->label('Updated At')
+                    ->disabled(),
             ]);
     }
 
@@ -123,6 +112,14 @@ class NewsLetterResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->limit(50),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->dateTime()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Updated At')
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->filters([
 
