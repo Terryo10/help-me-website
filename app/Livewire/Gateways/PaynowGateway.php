@@ -6,7 +6,7 @@ use App\Models\Donation;
 use Livewire\Component;
 
 use App\Models\Transaction;
-use EmailNotificationService;
+use App\Services\EmailNotificationService;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Paynow\Payments\Paynow;

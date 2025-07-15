@@ -4,7 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Campaign;
 use App\Models\Donation;
-use EmailNotificationService;
+use App\Services\EmailNotificationService;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
