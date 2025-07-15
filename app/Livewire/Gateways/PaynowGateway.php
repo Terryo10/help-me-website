@@ -6,6 +6,7 @@ use App\Models\Donation;
 use Livewire\Component;
 
 use App\Models\Transaction;
+use EmailNotificationService;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Paynow\Payments\Paynow;
@@ -42,7 +43,7 @@ class PaynowGateway extends Component
         $new_trans = Transaction::updateOrCreate(
             ['donation_id' => $this->donation_id],
             [
-               'donation_random_id' => $this->generateRandomId(),
+                'donation_random_id' => $this->generateRandomId(),
                 'donation_id' => $this->donation_id,
                 'type' => 'donation',
                 'amount' => $donation->amount,
@@ -118,8 +119,11 @@ class PaynowGateway extends Component
                 $this->paymentSent = "false";
                 $donation = \App\Models\Donation::findOrFail($transaction->donation_id);
                 $donation->update(['status' => 'completed']);
+                $notificaionService = new EmailNotificationService();
+                $notificaionService->sendEmail("Payment Completed", "Someone donated to your campaign ID {$donation->campaign_id} ", $donation->campaign->user->email);
 
-                return redirect()->to("/transaction/". $transaction->id)->with('success', 'Your payment was successdull!!');
+
+                return redirect()->to("/transaction/" . $transaction->id)->with('success', 'Your payment was successdull!!');
             } else {
                 $this->submittingCheck = "false";
                 $this->submitting = "false";

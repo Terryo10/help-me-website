@@ -5,6 +5,7 @@ namespace App\Livewire\Gateways;
 use App\Models\Donation;
 use Livewire\Component;
 use App\Models\Transaction;
+use EmailNotificationService;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -93,6 +94,11 @@ class StripeGateway extends Component
                         $donation = \App\Models\Donation::findOrFail($new_trans->donation_id);
                         $donation->update(['status' => 'completed']);
 
+                        $notificaionService = new EmailNotificationService();
+                        $notificaionService->sendEmail("Payment Completed", "Someone donated to your campaign ID {$donation->campaign_id} ", $donation->campaign->user->email);
+
+
+
                         $this->submitting = "false";
                         return redirect()->to("/transaction/" . $new_trans->id)->with('message', 'Payment completed successfully!');
                     } else if ($confirmResult['status'] === 'requires_action') {
@@ -137,6 +143,10 @@ class StripeGateway extends Component
                         ]);
                         $donation = \App\Models\Donation::findOrFail($transaction->donation_id);
                         $donation->update(['status' => 'completed']);
+
+                        $notificaionService = new EmailNotificationService();
+                        $notificaionService->sendEmail("Payment Completed", "Someone donated to your campaign ID {$donation->campaign_id} ", $donation->campaign->user->email);
+
 
                         $this->submittingCheck = "false";
                         $this->submitting = "false";

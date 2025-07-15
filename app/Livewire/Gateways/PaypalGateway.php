@@ -5,6 +5,7 @@ namespace App\Livewire\Gateways;
 use App\Models\Donation;
 use Livewire\Component;
 use App\Models\Transaction;
+use EmailNotificationService;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -121,6 +122,12 @@ class PaypalGateway extends Component
 
                         $donation = \App\Models\Donation::findOrFail($transaction->donation_id);
                         $donation->update(['status' => 'completed']);
+                        $notificaionService = new EmailNotificationService();
+                        $notificaionService->sendEmail("Payment Completed", "Someone donated to your campaign ID {$donation->campaign_id} ", $donation->campaign->user->email);
+
+
+                        $donation = \App\Models\Donation::findOrFail($transaction->donation_id);
+                        $donation->update(['status' => 'completed']);
 
                         $this->submittingCheck = "false";
                         $this->submitting = "false";
@@ -137,6 +144,11 @@ class PaypalGateway extends Component
                                 'gateway_response' => $captureResult,
                                 'processed_at' => now()
                             ]);
+                            $donation = \App\Models\Donation::findOrFail($transaction->donation_id);
+                            $donation->update(['status' => 'completed']);
+                            $notificaionService = new EmailNotificationService();
+                            $notificaionService->sendEmail("Payment Completed", "Someone donated to your campaign ID {$donation->campaign_id} ", $donation->campaign->user->email);
+
 
                             $this->submittingCheck = "false";
                             $this->submitting = "false";

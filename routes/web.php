@@ -34,7 +34,7 @@ Route::post('/news-letter', [\App\Http\Controllers\NewsLetterController::class, 
 
 Route::post('/search', function (Request $request) {
     $query = $request->search ?? '';
-    return redirect()->to('/search/'.$query);
+    return redirect()->to('/search/' . $query);
 })->name('search.redirect');
 
 Route::get('/payment/ecocash/{donation_id}', \App\Livewire\Gateways\PaynowGateway::class)->name('transaction.ecocash');
@@ -45,12 +45,15 @@ Route::get('/campaigns', \App\Livewire\CampaignList::class)->name('campaigns.ind
 Route::get('/payment/paypal/{orderId}', \App\Livewire\Gateways\PaypalGateway::class)->name('payment.paypal');
 Route::get('/payment/paynow/{orderId}', \App\Livewire\Gateways\PaynowGateway::class)->name('payment.paynow');
 Route::get('/payment/stripe/{orderId}', \App\Livewire\Gateways\StripeGateway::class)->name('payment.stripe');
- // PayPal callback routes
- Route::get('/paypal-success/{transactionId}', function ($transactionId) {
+// PayPal callback routes
+Route::get('/paypal-success/{transactionId}', function ($transactionId) {
     $transaction = \App\Models\Transaction::findOrFail($transactionId);
     $donation = \App\Models\Donation::findOrFail($transaction->donation_id);
     $transaction->update(['status' => 'completed']);
     $donation->update(['status' => 'completed']);
+    $notificaionService = new EmailNotificationService();
+    $notificaionService->sendEmail("Payment Completed", "Someone donated to your campaign ID {$donation->campaign_id} ", $donation->campaign->user->email);
+
     return redirect()->route('transaction.show', $transactionId)->with('message', 'Payment completed successfully!');
 })->name('paypal.success');
 

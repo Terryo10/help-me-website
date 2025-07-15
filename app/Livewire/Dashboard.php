@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Campaign;
 use App\Models\Donation;
+use EmailNotificationService;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +19,7 @@ class Dashboard extends Component
     public function getBalance()
     {
         $user = Auth::user();
-        $totalRaised = Campaign::where('user_id', $user->id)->get()->sum(function($campaign) {
+        $totalRaised = Campaign::where('user_id', $user->id)->get()->sum(function ($campaign) {
             return $campaign->raised_amount_count();
         });
 
@@ -49,7 +50,11 @@ class Dashboard extends Component
         $withdrawal->status = 'pending';
         $withdrawal->save();
 
+        $user_id = Auth::id();
         // Optionally, send notification to admin
+        $notificaionService = new EmailNotificationService();
+        $notificaionService->sendEmail("Someone is requesting for withdrawals", "User requesting for withdrawal ID {$user_id} with the sum of $ {$this->withdrawalAmount}", env('ADMIN_EMAIL'));
+
 
         // Reset form fields
         $this->reset(['withdrawalAmount', 'phoneNumber', 'bankName', 'accountNumber', 'branchCode']);
@@ -65,7 +70,7 @@ class Dashboard extends Component
 
         // Get user stats
         $userCampaigns = Campaign::where('user_id', $user->id)->get();
-        $totalRaised = $userCampaigns->sum(function($campaign) {
+        $totalRaised = $userCampaigns->sum(function ($campaign) {
             return $campaign->raised_amount_count();
         });
         $activeCampaigns = $userCampaigns->where('status', 'active')->count();
