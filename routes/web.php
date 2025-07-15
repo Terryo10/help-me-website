@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\HomePage;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use EmailNotificationService;
 
 Route::get('/', \App\Livewire\HomePage::class)->name('home');
 
