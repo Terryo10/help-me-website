@@ -1,7 +1,7 @@
 <?php
 namespace App\Livewire;
 
-require_once __DIR__ . '../..//Services/EmailNotificationService.php';
+require_once __DIR__ . '../../Services/EmailNotificationService.php';
 
 use App\Models\Campaign;
 use App\Models\Donation;
