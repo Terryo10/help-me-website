@@ -1,12 +1,11 @@
 <?php
 namespace App\Livewire;
 
-require_once __DIR__ . '././Services/EmailNotificationService.php';
-
 use App\Models\Campaign;
 use App\Models\Donation;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use App\Services\EmailNotificationService;
 
 class Dashboard extends Component
 {
