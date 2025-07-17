@@ -26,6 +26,8 @@ class EmailNotificationService
                 $message->to($email);
                 $message->subject($subject);
             });
+
+            return "Email sent successfully to {$email}";
         } catch (\Exception $e) {
             return $e->getMessage();
         }
