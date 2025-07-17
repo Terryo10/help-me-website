@@ -28,8 +28,17 @@ class CampaignShow extends Component
         }
     }
 
+    public function updated($propertyName)
+    {
+        $this->showDonationForm = true; // Automatically show the donation form when any property is updated
+        // This method is called whenever any public property is updated
+        // You can add custom logic here, for example logging or validation
+        // Example: \Log::info("Property {$propertyName} updated to: " . $this->$propertyName);
+    }
+
     public function toggleDonationForm()
     {
+        $this->showDonationForm = true; // Automatically show the donation form when any property is updated
         $this->showDonationForm = !$this->showDonationForm;
     }
 
@@ -60,11 +69,11 @@ class CampaignShow extends Component
         session()->flash('message', 'Thank you for your donation! You will be redirected to payment.');
 
         if ($this->selected_gateway == 'ecocash') {
-            return redirect('/payment/ecocash/'.$donation->id);
+            return redirect('/payment/ecocash/' . $donation->id);
         } else if ($this->selected_gateway == 'paypal') {
-            return redirect('/payment/paypal/'.$donation->id);
-        }else if ($this->selected_gateway == 'stripe') {
-            return redirect('/payment/stripe/'.$donation->id);
+            return redirect('/payment/paypal/' . $donation->id);
+        } else if ($this->selected_gateway == 'stripe') {
+            return redirect('/payment/stripe/' . $donation->id);
         }
 
         // Redirect to payment page
