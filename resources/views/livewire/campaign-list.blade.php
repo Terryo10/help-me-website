@@ -121,7 +121,7 @@
                                     <span class="donors">{{ $campaign->donations()->count() }} donors</span>
                                     @if($campaign->end_date)
                                     <span class="days-left">
-                                        {{ number_format($campaign->end_date->diffInDays(now()), 0) }} days left
+                                        {{ max($campaign->end_date->diffInDays(now(), false), 0) }} days left
                                     </span>
                                     @endif
                                 </div>

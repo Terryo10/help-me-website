@@ -5,7 +5,7 @@
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-md-8 col-lg-6">
                     <div class="sign-up__form wow fadeInUp mt-5 mb-5" data-wow-duration="0.8s">
-                        <h3 class="sign-up__title text-center mb-2">Paynow Gateway</h3>
+                        <h3 class="sign-up__title text-center mb-2">Ecocash Gateway</h3>
                         <p class="sign-up__sub-title text-center mb_40">Pay using Ecocash for the sum of ${{ $amount ??
                             '0' }}</p>
                         @if (session()->has('error'))
