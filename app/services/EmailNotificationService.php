@@ -6,6 +6,19 @@ use Illuminate\Support\Facades\Mail;
 
 class EmailNotificationService
 {
+    public function __construct()
+    {
+        dd('loaded routes/web.php');
+    }
+    /**
+     * Send an email notification.
+     *
+     * @param string $subject
+     * @param string $email_message
+     * @param string $email
+     * @return void|string
+     */
+
     public function sendEmail($subject = "", $email_message = "", $email = "")
     {
         try {
