@@ -8,7 +8,7 @@ class EmailNotificationService
 {
     public function __construct()
     {
-        dd('loaded routes/web.php');
+        // You can initialize any properties or dependencies here if needed
     }
     /**
      * Send an email notification.
