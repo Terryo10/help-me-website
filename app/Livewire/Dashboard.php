@@ -51,7 +51,7 @@ class Dashboard extends Component
 
         $user_id = Auth::id();
         // Optionally, send notification to admin
-        $notificaionService = new \EmailNotificationService();
+        $notificaionService = new EmailNotificationService();
         $notificaionService->sendEmail("Someone is requesting for withdrawals", "User requesting for withdrawal ID {$user_id} with the sum of $ {$this->withdrawalAmount}", env('ADMIN_EMAIL'));
 
 
