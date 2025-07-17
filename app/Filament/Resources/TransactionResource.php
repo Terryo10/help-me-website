@@ -43,12 +43,12 @@ class TransactionResource extends Resource
                             ->required()
                             ->maxLength(255),
 
-                        Forms\Components\Select::make('user_id')
-                            ->label('User')
-                            ->relationship('user', 'name')
-                            ->searchable()
-                            ->preload()
-                            ->required(),
+                        // Forms\Components\Select::make('user_id')
+                        //     ->label('User')
+                        //     ->relationship('user', 'name')
+                        //     ->searchable()
+                        //     ->preload()
+                        //     ->required(),
 
                         Forms\Components\TextInput::make('amount')
                             ->label('Amount')
