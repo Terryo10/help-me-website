@@ -37,10 +37,10 @@
                             <div class="organizer">
                                 {{-- <img src="{{ asset('template/assets/images/avatar-placeholder.png') }}"
                                     alt="{{ $campaign->user->name }}" class="organizer-avatar"> --}}
-                                <div>
-                                    <span class="organizer-label">Organized by</span>
+
+                                    <h4 class="organizer-label">Organized by:</h4>
                                     <strong class="organizer-name">{{ $campaign->user->name }}</strong>
-                                </div>
+
                             </div>
                             @if($campaign->location)
                             <div class="location">
@@ -58,7 +58,7 @@
                     <!-- Campaign Image -->
                     <div class="campaign-image-container wow fadeInUp">
                         <img src="{{ $campaign->featured_image ? asset('storage/' . $campaign->featured_image) : asset('template/assets/images/placeholder.png') }}"
-                            alt="{{ $campaign->title }}" class="campaign-featured-image">
+                            alt="{{ $campaign->title }}" class="campaign-featured-image pro-large-img">
 
                         @if($campaign->gallery)
                         @php
@@ -72,11 +72,18 @@
                                 <div class="col-4 col-md-3">
                                     <div class="gallery-thumb">
                                         <img src="{{ asset('storage/' . trim($image)) }}" alt="Gallery Image"
-                                            class="img-fluid rounded"
+                                            class="img-fluid rounded img-click"
                                             style="object-fit:cover; width:100%; height:90px;">
                                     </div>
                                 </div>
                                 @endforeach
+                                <div class="col-4 col-md-3">
+                                    <div class="gallery-thumb">
+                                        <img src="{{ $campaign->featured_image ? asset('storage/' . $campaign->featured_image) : asset('template/assets/images/placeholder.png') }}"
+                                            alt="Gallery Image" class="img-fluid rounded img-click"
+                                            style="object-fit:cover; width:100%; height:90px;">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         @endif
@@ -721,4 +728,17 @@
             }
         }
     </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('.img-click').forEach((img)=>{
+        img.addEventListener('click', function (e){
+            document.querySelectorAll(`.pro-large-img`).forEach((element)=>{
+                element.setAttribute('src', e.target.getAttribute('src'));
+            })
+        })
+    })
+
+    });
+
+    </script>
 </div>
