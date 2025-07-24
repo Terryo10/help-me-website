@@ -122,8 +122,8 @@ class PaypalGateway extends Component
 
                         $donation = \App\Models\Donation::findOrFail($transaction->donation_id);
                         $donation->update(['status' => 'completed']);
-                        $notificaionService = new EmailNotificationService();
-                        $notificaionService->sendEmail("Payment Completed", "Someone donated to your campaign ID {$donation->campaign_id} ", $donation->campaign->user->email);
+                        // $notificaionService = new EmailNotificationService();
+                        // $notificaionService->sendEmail("Payment Completed", "Someone donated to your campaign ID {$donation->campaign_id} ", $donation->campaign->user->email);
 
 
                         $donation = \App\Models\Donation::findOrFail($transaction->donation_id);
@@ -146,8 +146,8 @@ class PaypalGateway extends Component
                             ]);
                             $donation = \App\Models\Donation::findOrFail($transaction->donation_id);
                             $donation->update(['status' => 'completed']);
-                            $notificaionService = new EmailNotificationService();
-                            $notificaionService->sendEmail("Payment Completed", "Someone donated to your campaign ID {$donation->campaign_id} ", $donation->campaign->user->email);
+                            // $notificaionService = new EmailNotificationService();
+                            // $notificaionService->sendEmail("Payment Completed", "Someone donated to your campaign ID {$donation->campaign_id} ", $donation->campaign->user->email);
 
 
                             $this->submittingCheck = "false";
