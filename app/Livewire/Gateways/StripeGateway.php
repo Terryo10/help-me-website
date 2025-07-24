@@ -180,7 +180,6 @@ class StripeGateway extends Component
 
     private function createStripePaymentIntent($transaction)
     {
-        dd(env('STRIPE_SECRET_KEY'));
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . env('STRIPE_SECRET_KEY'),
             'Content-Type' => 'application/x-www-form-urlencoded',
