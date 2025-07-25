@@ -52,7 +52,7 @@ class Dashboard extends Component
 
         $user_id = Auth::id();
         // Optionally, send notification to admin
-        //  new EmailNotificationService("Someone is requesting for withdrawals", "User requesting for withdrawal ID {$user_id} with the sum of $ {$this->withdrawalAmount}", env('ADMIN_EMAIL'), "send");
+         new EmailNotificationService("Someone is requesting for withdrawals", "User requesting for withdrawal ID {$user_id} with the sum of $ {$this->withdrawalAmount}", env('ADMIN_EMAIL'), "send");
 
         // Reset form fields
         $this->reset(['withdrawalAmount', 'phoneNumber', 'bankName', 'accountNumber', 'branchCode']);
