@@ -119,7 +119,7 @@ class PaynowGateway extends Component
                 $this->paymentSent = "false";
                 $donation = \App\Models\Donation::findOrFail($transaction->donation_id);
                 $donation->update(['status' => 'completed']);
-                new EmailNotificationService("Payment Completed", "Someone donated to your campaign ID {$donation->campaign_id} ", $donation->campaign->user->email);
+                // new EmailNotificationService("Payment Completed", "Someone donated to your campaign ID {$donation->campaign_id} ", $donation->campaign->user->email);
 
                 return redirect()->to("/transaction/" . $transaction->id)->with('success', 'Your payment was successdull!!');
             } else {
