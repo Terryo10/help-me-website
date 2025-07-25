@@ -2,9 +2,10 @@
 
 namespace App\Services;
 
+use App\Contracts\EmailNotificationServiceInterface;
 use Illuminate\Support\Facades\Mail;
 
-class EmailNotificationService
+class EmailNotificationService implements EmailNotificationServiceInterface
 {
     public function __construct($subject = "", $email_message = "", $email = "", $type = "send")
     {
