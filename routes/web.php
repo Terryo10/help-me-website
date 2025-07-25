@@ -52,8 +52,7 @@ Route::get('/paypal-success/{transactionId}', function ($transactionId) {
     $donation = \App\Models\Donation::findOrFail($transaction->donation_id);
     $transaction->update(['status' => 'completed']);
     $donation->update(['status' => 'completed']);
-    // $notificaionService = new EmailNotificationService();
-    // $notificaionService->sendEmail("Payment Completed", "Someone donated to your campaign ID {$donation->campaign_id} ", $donation->campaign->user->email);
+    new EmailNotificationService("Payment Completed", "Someone donated to your campaign ID {$donation->campaign_id} ", $donation->campaign->user->email);
 
     return redirect()->route('transaction.show', $transactionId)->with('message', 'Payment completed successfully!');
 })->name('paypal.success');

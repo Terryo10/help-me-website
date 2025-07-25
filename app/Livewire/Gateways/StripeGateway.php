@@ -94,10 +94,7 @@ class StripeGateway extends Component
                         $donation = \App\Models\Donation::findOrFail($new_trans->donation_id);
                         $donation->update(['status' => 'completed']);
 
-                        // $notificaionService = new EmailNotificationService();
-                        // $notificaionService->sendEmail("Payment Completed", "Someone donated to your campaign ID {$donation->campaign_id} ", $donation->campaign->user->email);
-
-
+                       new EmailNotificationService("Payment Completed", "Someone donated to your campaign ID {$donation->campaign_id} ", $donation->campaign->user->email);
 
                         $this->submitting = "false";
                         return redirect()->to("/transaction/" . $new_trans->id)->with('message', 'Payment completed successfully!');
@@ -144,9 +141,7 @@ class StripeGateway extends Component
                         $donation = \App\Models\Donation::findOrFail($transaction->donation_id);
                         $donation->update(['status' => 'completed']);
 
-                        // $notificaionService = new EmailNotificationService();
-                        // $notificaionService->sendEmail("Payment Completed", "Someone donated to your campaign ID {$donation->campaign_id} ", $donation->campaign->user->email);
-
+                        new EmailNotificationService("Payment Completed", "Someone donated to your campaign ID {$donation->campaign_id} ", $donation->campaign->user->email);
 
                         $this->submittingCheck = "false";
                         $this->submitting = "false";

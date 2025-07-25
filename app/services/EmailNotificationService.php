@@ -6,9 +6,13 @@ use Illuminate\Support\Facades\Mail;
 
 class EmailNotificationService
 {
-    public function __construct()
+    public function __construct($subject = "", $email_message = "", $email = "", $type = "send")
     {
-        // You can initialize any properties or dependencies here if needed
+        if ($type == "send") {
+            $this->sendEmail($subject, $email_message, $email);
+        } elseif ($type == "forgot_password") {
+            $this->sendForgotPasswordEmail($email, $subject);
+        }
     }
     /**
      * Send an email notification.
@@ -43,5 +47,4 @@ class EmailNotificationService
             return $e->getMessage();
         }
     }
-
 }
